@@ -3,23 +3,24 @@
 Example:
 Input: A = {1, 2, 3, 4, 5}
 Output: [48]
- [20, 28]
- [8, 12, 16]
- [3, 5, 7, 9]
+      [20, 28]
+    [8, 12, 16]
+   [3, 5, 7, 9]
  [1, 2, 3, 4, 5]   */
 
- function reduceArrayOfSum(array){
+function reduceArrayOfSum(array) {
     //base case..
-    if(array.length==1){
+    if (array.length == 1) {
         console.log(array);
         return;
     }
     let reduceArr = [];
-    for(let i=0;i<=array.length-2;i++){
-        reduceArr[i] = array[i] + array[i+1];
+    for (let i = 0; i <= array.length - 2; i++) {
+        reduceArr[i] = array[i] + array[i + 1];
     }
-    console.log(array);
     reduceArrayOfSum(reduceArr);
- }
- const array =[1,2,3,4,5];
- reduceArrayOfSum(array);
+    console.log(array);
+}
+const array = [1, 2, 3, 4, 5];
+reduceArrayOfSum(array);
+
