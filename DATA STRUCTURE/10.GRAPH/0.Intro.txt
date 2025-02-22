@@ -1,0 +1,355 @@
+/--------------------------------📌 Graph Data Structure - A Deep Dive 🚀--------------------------------------------/
+
+Graphs are one of the most powerful and widely used non-linear data structures. They are used to model relationships 
+between objects, making them essential in fields like social networks, GPS navigation, recommendation systems, and 
+computer networks. Let's break it down in a fun and structured way! 🎯
+
+
+📜 1. What is a Graph? :-
+------------------------
+    A graph is a collection of nodes (vertices) and edges (connections between nodes). Unlike trees, graphs can have cycles,
+    and they can be directed or undirected.
+
+🔹 Real-World Examples:-
+-----------------------
+    🚇 Metro/Subway Map → Stations (nodes) connected by tracks (edges).
+    🌍 Google Maps → Locations (nodes) connected by roads (edges).
+    📱 Social Media → Users (nodes) connected by friendships/following (edges).
+    💳 Payment Network → Bank accounts (nodes) connected by transactions (edges).
+
+
+📌 2. Graph Representation:-
+---------------------------
+    A graph can be represented in multiple ways:-
+    --------------------------------------------
+        🎯 1. Adjacency Matrix (2D Array) :-
+        -----------------------------------
+            📜 A 2D array (N × N) where matrix[i][j] = 1 if there is an edge between i and j, otherwise 0.
+            ✅ Pros: Quick edge lookup (O(1)).
+            ❌ Cons: Uses more memory (O(N²)).
+
+            👉 Example of a Graph:-
+            ----------------------
+                                    A --- B
+                                     \   /
+                                       C
+
+            🔹 Adjacency Matrix:-
+            --------------------
+                                    A	B	C
+                                A	0	1	1
+                                B	1	0	1
+                                C	1	1	0
+                    
+
+        🎯 2. Adjacency List (Best for Sparse Graphs) :-
+        -----------------------------------------------
+            📜 Each node has a list of neighbors.
+            ✅ Pros: Uses less space (O(V + E)), better for large graphs.
+            ❌ Cons: Edge lookup takes O(V).
+
+            👉 Example Representation in JavaScript:-
+            ----------------------------------------
+                        const graph = {
+                            'A': ['B', 'C'],
+                            'B': ['A', 'C'],
+                            'C': ['A', 'B']
+                        };
+        
+        🎯 Difference between Adjacency List and Adjacency Matrix :-
+        -----------------------------------------------------------
+                Adjacency List                                          Adjacency Matrix
+                -----------------------------------------------------------------------------------------
+                ✅ Can take up less space (in sparse graphs)           ✅ Takes up more space (in sparse graphs)
+                ✅ Faster to iterate over all edges                    ✅ Slower to iterate over all edges
+                ✅ Can be slower to lookup specific edge               ✅ Faster to lookup specific edge
+        
+                
+        📌 3. Types of Graphs :-
+        -----------------------
+            🔹 1. Directed vs. Undirected :-
+            -------------------------------
+                🔁 Undirected Graph → A --- B (Bidirectional)
+                ➡️ Directed Graph (Digraph) → A → B (One-way)
+
+            🔹 2. Weighted vs. Unweighted :-
+            -------------------------------
+                🎯 Weighted Graph → A --(10)--> B (Edges have a weight/cost)
+                🔹 Unweighted Graph → A → B (Edges have no weight)
+
+            🔹 3. Cyclic vs. Acyclic :-
+            --------------------------
+                ♻️ Cyclic Graph → Has cycles (e.g., A → B → C → A)
+                🚫 Acyclic Graph → No cycles (e.g., Trees are acyclic graphs)
+
+
+🎯 1️⃣ Graph Operations :-
+-------------------------
+    🎯 1. Creating a Graph :-
+    ------------------------
+        ✅ We can represent a graph using:-
+        ----------------------------------
+            ♻️ Adjacency List (Efficient for sparse graphs)
+            ♻️ Adjacency Matrix (Efficient for dense graphs)
+
+            📌 Example: Adjacency List Representation in JavaScript :-
+            ---------------------------------------------------------
+                        class Graph {
+                            constructor() {
+                                this.adjacencyList = {}; // Store graph as a hashmap
+                            }
+                        }
+
+                        👉 Initially, the graph is empty with no vertices or edges.
+
+
+    🎯 2. Adding a Vertex (Node):-
+    -----------------------------
+        ✅ A vertex is added to the adjacency list.
+        ✅ Time Complexity: O(1)
+
+        💡 Pseudocode:-
+        --------------
+            1️⃣ Create a new vertex if it does not exist.
+            2️⃣ Add an empty array for the vertex in the adjacency list.
+
+            📌 Example Implementation:-
+            --------------------------
+                    addVertex(vertex) {
+                        if (!this.adjacencyList[vertex]) {
+                            this.adjacencyList[vertex] = [];
+                        }
+                    }
+                    📌 Example Execution:-
+                    ---------------------
+                        graph.addVertex("A");
+                        graph.addVertex("B");
+                        console.log(graph.adjacencyList);
+                        // Output: { A: [], B: [] }
+
+                        
+    🎯 3. Adding an Edge (Connection) :-
+    -----------------------------------
+        ✅ An edge is a connection between two vertices.
+        ✅ For an undirected graph, both vertices should be updated.
+        ✅ Time Complexity: O(1)
+
+        💡 Pseudocode:-
+        --------------
+            ✅ Step 1: Check if both vertices exist.
+            ✅ Step 2: Add the second vertex to the first vertex’s adjacency list.
+            ✅ Step 3: For an undirected graph, add the first vertex to the second vertex’s list.
+
+            👉 Example Implementation of Add Edge::-
+            ---------------------------------------
+                    addEdge(vertex1, vertex2) {
+                        if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
+                            this.adjacencyList[vertex1].push(vertex2);
+                            this.adjacencyList[vertex2].push(vertex1); // For undirected graph
+                        }
+                    }
+
+                    📌 Example Execution:-
+                    ---------------------
+                        graph.addEdge("A", "B");
+                        graph.addEdge("A", "C");
+                        console.log(graph.adjacencyList);
+                        // Output: { A: [B, C], B: [A], C: [A] }
+
+
+    🎯 4. Removing an Edge:-
+    -----------------------
+        ✅ Removes the connection between two vertices.
+        ✅ Time Complexity: O(V) (V = Number of vertices)
+
+        💡 Pseudocode:-
+        --------------
+            1️⃣ Ensure the vertices exist.
+            2️⃣ Remove the connection from both adjacency lists.
+
+            📌 Example Implementation:-
+            --------------------------
+                removeEdge(vertex1, vertex2) {
+                    if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
+                        this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(v => v !== vertex2);
+                        this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(v => v !== vertex1);
+                    }
+                }
+                📌 Example Execution:-
+                ----------------------
+                    graph.removeEdge("A", "B");
+                    console.log(graph.adjacencyList);
+                    // Output: { A: [C], B: [], C: [A] }
+
+
+    🎯 5. Removing a Vertex :-
+    -------------------------
+        ✅ Deletes a vertex and all its connections.
+        ✅ Time Complexity: O(V + E)
+
+        💡 Pseudocode: -
+        ---------------
+            1️⃣ Loop through all adjacent vertices.
+            2️⃣ Remove the vertex from each adjacency list.
+            3️⃣ Delete the vertex from the graph.
+
+            📌 Example Implementation:-
+            --------------------------
+                    removeVertex(vertex) {
+                        if (!this.adjacencyList[vertex]) return;
+                        while (this.adjacencyList[vertex].length) {
+                            let adjacentVertex = this.adjacencyList[vertex].pop();
+                            this.removeEdge(vertex, adjacentVertex);
+                        }
+                        delete this.adjacencyList[vertex];
+                    }
+            
+                    📌 Example Execution:-
+                    ---------------------
+                        graph.removeVertex("A");
+                        console.log(graph.adjacencyList);
+                        // Output: { B: [], C: [] }
+
+
+🚀 Full Graph Implementation (Undirected Graph) :-
+--------------------------------------------------
+            class Graph {
+                constructor() {
+                    this.adjacencyList = {};  // Using an object as an adjacency list
+                }
+
+                // Add a new vertex to the graph
+                addVertex(vertex) {
+                    if (!this.adjacencyList[vertex]) {
+                        this.adjacencyList[vertex] = [];
+                    }
+                }
+
+                // Add an edge between two vertices (Undirected Graph)
+                addEdge(vertex1, vertex2) {
+                    if (!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]) {
+                        console.log("Vertex not found!");
+                        return;
+                    }
+                    this.adjacencyList[vertex1].push(vertex2);
+                    this.adjacencyList[vertex2].push(vertex1);
+                }
+
+                // Remove an edge between two vertices
+                removeEdge(vertex1, vertex2) {
+                    this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(v => v !== vertex2);
+                    this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(v => v !== vertex1);
+                }
+
+                // Remove a vertex from the graph
+                removeVertex(vertex) {
+                    while (this.adjacencyList[vertex]?.length) {
+                        let adjacentVertex = this.adjacencyList[vertex].pop();
+                        this.removeEdge(vertex, adjacentVertex);
+                    }
+                    delete this.adjacencyList[vertex];
+                }
+
+                // Display the adjacency list of the graph
+                display() {
+                    console.log("Graph Representation:");
+                    for (let vertex in this.adjacencyList) {
+                        console.log(vertex + " -> " + this.adjacencyList[vertex].join(", "));
+                    }
+                }
+
+                // Depth-First Search (DFS) - Recursive
+                dfs(start, visited = new Set()) {
+                    if (!start || visited.has(start)) return;
+                    visited.add(start);
+                    console.log(start);
+                    for (let neighbor of this.adjacencyList[start]) {
+                        this.dfs(neighbor, visited);
+                    }
+                }
+
+                // Breadth-First Search (BFS) - Iterative
+                bfs(start) {
+                    let queue = [start];
+                    let visited = new Set();
+                    visited.add(start);
+
+                    while (queue.length) {
+                        let vertex = queue.shift();
+                        console.log(vertex);
+                        for (let neighbor of this.adjacencyList[vertex]) {
+                            if (!visited.has(neighbor)) {
+                                visited.add(neighbor);
+                                queue.push(neighbor);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Example usage:
+            const g = new Graph();
+
+            // Adding vertices
+            g.addVertex('A');
+            g.addVertex('B');
+            g.addVertex('C');
+            g.addVertex('D');
+            g.addVertex('E');
+
+            // Adding edges
+            g.addEdge('A', 'B');
+            g.addEdge('A', 'C');
+            g.addEdge('B', 'D');
+            g.addEdge('C', 'E');
+            g.addEdge('D', 'E');
+
+            // Display graph
+            g.display();
+
+            // Traversals
+            console.log("\nDFS Traversal:");
+            g.dfs('A');  // Output: A → B → D → E → C
+
+            console.log("\nBFS Traversal:");
+            g.bfs('A');  // Output: A → B → C → D → E
+
+            // Removing edge
+            console.log("\nRemoving edge B - D");
+            g.removeEdge('B', 'D');
+            g.display();
+
+            // Removing a vertex
+            console.log("\nRemoving vertex C");
+            g.removeVertex('C');
+            g.display();
+
+-----------------------------------------------------------------------------------------------------
+📌 Summary Table 📝 :-
+---------------------
+    Operation	            Time Complexity
+    Add Vertex	            O(1)
+    Add Edge	            O(1)
+    Remove Edge	            O(V)
+    Remove Vertex	        O(V + E)
+    BFS Traversal	        O(V + E)
+    DFS Traversal	        O(V + E)
+
+📌 4. Graph Operations & Their Time Complexity :-
+-------------------------------------------------
+        Operation	                    Adjacency Matrix	        Adjacency List
+        Add Vertex	                    O(N²) (resize needed)	    O(1)
+        Add Edge	                    O(1)	                    O(1)
+        Remove Edge	                    O(1)	                    O(V)
+        Check Edge Existence	        O(1)	                    O(V)
+        Graph Traversal (BFS/DFS)	    O(V²)	                    O(V + E)
+
+
+🚀 Graphs are powerful structures used in:-
+------------------------------------------
+    ✔ Pathfinding (Google Maps, GPS) 🚗
+    ✔ Social Networks (Facebook, LinkedIn) 🤝
+    ✔ Web Crawling (Google Search) 🔍
+    ✔ Network Routing (Internet, LAN) 🌐
+
+    Would you like me to add weighted graphs or shortest path algorithms next? 😊

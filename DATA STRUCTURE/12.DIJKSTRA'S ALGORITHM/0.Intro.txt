@@ -1,0 +1,192 @@
+/----------------------------------------🎯 Dijkstra’s Algorithm 🎯--------------------------------------------------/
+
+🎯 Dijkstra’s Algorithm:-
+------------------------
+    👉 Dijkstra’s Algorithm is a graph traversal algorithm used to find the shortest path from a single source node to 
+        all other nodes in a weighted graph.
+
+
+🎯 Key Features of Dijkstra’s Algorithm:-
+----------------------------------------
+    ✅ It is used for shortest path finding in weighted graphs.
+    ✅ It works with both directed and undirected graphs.
+    ✅ It does not work with negative weight edges (unlike Bellman-Ford Algorithm).
+    ✅ It uses a greedy approach, selecting the node with the smallest tentative distance first.
+    ✅ It can be implemented using:-
+    -------------------------------
+    📌 Priority Queue (Heap-based) → Efficient implementation with O((V + E) log V) complexity.
+    📌 Array-based (Brute Force) → Simpler but less efficient O(V²) complexity.
+
+
+🎯 Real-World Applications of Dijkstra’s Algorithm:-
+---------------------------------------------------
+    📌 Google Maps / GPS Navigation → Finding the shortest route between locations.
+    📌 Network Routing → Optimizing data transmission across network nodes.
+    📌 AI Pathfinding (Games & Robotics) → AI navigation in game development.
+    📌 Public Transport Systems → Finding the shortest travel route in metro/train networks.
+
+
+🎯 Step-by-Step Explanation of Dijkstra’s Algorithm:-
+----------------------------------------------------
+    👉 Thought Process (Pseudocode):-
+    --------------------------------
+        ✅ Initialize distances from the source node to all other nodes as infinity (∞).
+        ✅ Set the distance to the source node as 0.
+        ✅ Use a priority queue (min-heap) to store nodes based on their tentative distances.
+        ✅ Extract the node with the smallest distance and process its neighbors.
+        ✅ Update the distance of neighboring nodes if a shorter path is found.
+        ✅ Repeat until all nodes are processed (Priority Queue is empty).
+
+        🎯 Example Implementation of Dijkstra’s Algorithm:-
+        --------------------------------------------------
+            📌 Example Graph Representation:-
+            --------------------------------
+                                                          (A)
+                                                        /    \
+                                                       4       1
+                                                      /          \
+                                                    (B)----2----(C)
+                                                      \         /
+                                                       5       3
+                                                        \    /
+                                                         (D)
+
+            🔹 Adjacency List Representation:-
+            ----------------------------------
+                    Graph = {
+                        'A': [('B', 4), ('C', 1)],
+                        'B': [('A', 4), ('C', 2), ('D', 5)],
+                        'C': [('A', 1), ('B', 2), ('D', 3)],
+                        'D': [('B', 5), ('C', 3)]
+                    }
+
+            📌 Dijkstra’s Algorithm (Using Priority Queue - Min Heap):-
+            ----------------------------------------------------------
+                    class PriorityQueue {
+                        constructor() {
+                            this.values = [];
+                        }
+                        
+                        enqueue(node, priority) {
+                            this.values.push({ node, priority });
+                            this.values.sort((a, b) => a.priority - b.priority);
+                        }
+                        
+                        dequeue() {
+                            return this.values.shift();
+                        }
+                        
+                        isEmpty() {
+                            return this.values.length === 0;
+                        }
+                    }
+                    
+                    class Graph {
+                        constructor() {
+                            this.adjacencyList = {};
+                        }
+                    
+                        addVertex(vertex) {
+                            if (!this.adjacencyList[vertex]) {
+                                this.adjacencyList[vertex] = [];
+                            }
+                        }
+                    
+                        addEdge(vertex1, vertex2, weight) {
+                            this.adjacencyList[vertex1].push({ node: vertex2, weight });
+                            this.adjacencyList[vertex2].push({ node: vertex1, weight });
+                        }
+                    
+                        dijkstra(start) {
+                            let distances = {};
+                            let pq = new PriorityQueue();
+                            let previous = {};
+                            let path = [];
+                            
+                            // Step 1: Initialize distances with Infinity, set start node to 0
+                            for (let vertex in this.adjacencyList) {
+                                distances[vertex] = vertex === start ? 0 : Infinity;
+                                previous[vertex] = null;
+                            }
+                    
+                            pq.enqueue(start, 0);
+                    
+                            while (!pq.isEmpty()) {
+                                let { node: smallest } = pq.dequeue();
+                                
+                                if (smallest) {
+                                    for (let neighbor of this.adjacencyList[smallest]) {
+                                        let candidate = distances[smallest] + neighbor.weight;
+                                        if (candidate < distances[neighbor.node]) {
+                                            distances[neighbor.node] = candidate;
+                                            previous[neighbor.node] = smallest;
+                                            pq.enqueue(neighbor.node, candidate);
+                                        }
+                                    }
+                                }
+                            }
+                            return { distances, previous };
+                        }
+                    }
+                    
+                    // Example Execution
+                    let g = new Graph();
+                    g.addVertex("A");
+                    g.addVertex("B");
+                    g.addVertex("C");
+                    g.addVertex("D");
+                    
+                    g.addEdge("A", "B", 4);
+                    g.addEdge("A", "C", 1);
+                    g.addEdge("B", "C", 2);
+                    g.addEdge("B", "D", 5);
+                    g.addEdge("C", "D", 3);
+                    
+                    console.log(g.dijkstra("A"));
+
+            📌 Output (Shortest Distances from A):-
+            --------------------------------------
+                    {
+                        distances: { A: 0, B: 3, C: 1, D: 4 },
+                        previous: { A: null, B: 'C', C: 'A', D: 'C' }
+                    }
+
+            🎯 Explanation of Output:-
+            -------------------------
+                    ✅ Shortest path from A to B → A → C → B (Distance: 3)
+                    ✅ Shortest path from A to C → A → C (Distance: 1)
+                    ✅ Shortest path from A to D → A → C → D (Distance: 4)
+
+
+🎯 Complexity Analysis:-
+-----------------------
+    Algorithm	                    Time Complexity	            Space Complexity
+    -------------------------------------------------------------------------------
+    Dijkstra’s (Priority Queue)	        O((V + E) log V)	        O(V)
+    Dijkstra’s (Array-based)	        O(V²)	                    O(V)
+
+    📌 Explanation:-
+    ---------------
+        ✅ Priority Queue (Heap) is more efficient for large graphs → O((V + E) log V)
+        ✅ Brute Force (Array-based approach) results in O(V²) complexity
+
+        
+🎯 Key Differences from Other Algorithms:-
+-----------------------------------------
+Algorithm	                Works for Negative Weights?	           Best Use Case
+-----------------------------------------------------------------------------------------------------
+Dijkstra’s Algorithm	        ❌ No	                            Weighted Graphs (No Negative Weights)
+Bellman-Ford Algorithm	        ✅ Yes	                            Graphs with Negative Weights
+Floyd-Warshall Algorithm	    ✅ Yes	                            All-Pairs Shortest Path
+
+
+🎯 Conclusion:-
+---------------
+    👉 Dijkstra’s Algorithm is the best choice when:
+    ✅ The graph has only positive weights
+    ✅ You need the shortest path from a single source
+
+    👉 Use Bellman-Ford if the graph has negative weights.
+    👉 Use Floyd-Warshall if you need shortest paths between all pairs.
+
+🚀 Dijkstra’s Algorithm ensures optimal shortest paths efficiently!

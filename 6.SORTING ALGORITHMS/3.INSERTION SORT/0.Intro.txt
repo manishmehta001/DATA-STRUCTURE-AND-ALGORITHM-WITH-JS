@@ -1,0 +1,47 @@
+🚀 Insertion Sort Explained in Depth :-
+        Insertion Sort is a simple and efficient sorting algorithm, especially useful for small arrays. It works similarly to how we sort playing cards in our hands.
+        
+🔹 How Insertion Sort Works?
+        👉 Imagine you are holding a deck of cards and sorting them one by one.
+        👉 The first card is already considered sorted.
+        👉 Pick the next card and insert it into the correct position in the sorted sequence.
+        👉 Repeat this process for all remaining cards.
+
+        This algorithm shifts elements as needed to ensure that every inserted element is in the correct position.
+
+📌 Steps to Perform Insertion Sort:-
+        1️⃣ Assume that the first element is already sorted.
+        2️⃣ Pick the next element and compare it with the previous elements.
+        3️⃣ Shift elements to the right until the correct position is found.
+        4️⃣ Repeat this process until all elements are sorted.
+        
+⏳ Time Complexity of Insertion Sort:-
+    Case	                                Time Complexity
+    🔹 Best Case (Already Sorted Array)	    O(n)
+    🔹 Average Case	                        O(n²)
+    🔹 Worst Case (Reverse Sorted Array)	O(n²)
+
+    ✅ Best case occurs when the array is already sorted, requiring no shifts.
+    ❌ Worst case occurs when the array is in reverse order, requiring maximum shifts.
+
+🎯 Dry Run Example:-
+    Array: [8, 4, 1, 5, 9]
+    Insertion Sort will work step by step as follows:-
+        1️⃣ Start:-    [8, 4, 1, 5, 9] (Consider 8 as already sorted)
+        2️⃣ Insert 4 → [4, 8, 1, 5, 9] (4 is inserted before 8)
+        3️⃣ Insert 1 → [1, 4, 8, 5, 9] (1 is inserted at the correct position)
+        4️⃣ Insert 5 → [1, 4, 5, 8, 9] (5 is inserted correctly) 5️⃣ **Insert 9** → [1, 4, 5, 8, 9]` (Already in the correct position)
+        ✅ Final Sorted Array: [1, 4, 5, 8, 9] 🎉
+
+🔥 Why Use Insertion Sort?
+    ✅ Best for Small Data Sets (Efficient for n < 1000)
+    ✅ Works Well for Nearly Sorted Arrays
+    ✅ Stable Sorting Algorithm (Preserves the order of equal elements)
+    ✅ In-Place Sorting (Does not use extra memory)
+    ❌ Not Suitable for Large Datasets (Because O(n²) in the worst case is slow)
+
+🚀 Summary (Quick Revision)
+    ✅ Insertion Sort works like manually sorting playing cards.
+    ✅ It picks each element and inserts it into the sorted portion.
+    ✅ Best case is O(n) and worst case is O(n²).
+    ✅ It is ideal for small or nearly sorted arrays.

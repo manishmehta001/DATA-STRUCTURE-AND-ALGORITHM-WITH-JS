@@ -1,0 +1,661 @@
+/========================🚀 Singly Linked List (SLL) - Complete Guide🚀============================================/
+
+🎯 What is a Singly Linked List?:-
+---------------------------------
+    A Singly Linked List (SLL) is a linear data structure where elements (called nodes) are connected sequentially. 
+    Each node contains two parts:
+    👉 Data (Value) – The actual value stored in the node.
+    👉 Next (Pointer) – A reference (or pointer) to the next node in the list.
+
+    Unlike arrays, linked lists do not use contiguous memory locations. Instead, they are dynamically allocated, 
+    meaning the list can grow and shrink as needed without worrying about memory reallocation.
+
+
+💡 Real-World Analogy of Singly Linked List:-
+--------------------------------------------
+        Imagine a train 🚆, where each coach is a node. Each coach has passengers (data) and a connector (pointer) linking 
+        it to the next coach. The last coach has no connector (null), marking the end of the train.
+
+        [ Engine 🚂 ] → [ Coach 1 ] → [ Coach 2 ] → [ Coach 3 ] → NULL
+        ---------------------------------------------------------------
+        Here,
+        ✅ Each coach is a node.
+        ✅ The connector between coaches is the pointer to the next node.
+        ✅ The train moves in one direction, just like a singly linked list.
+
+
+🏗 Structure of a Node in a Singly Linked List:-
+-----------------------------------------------
+
+    A node consists of:-
+    -------------------
+        👉 Data - The value stored in the node.
+        👉 Next - A pointer/reference to the next node in the list.
+        ✅ Example Node in JavaScript:-
+        ------------------------------
+            class Node {
+                constructor(value) {
+                this.value = value;  // Data part
+                this.next = null;    // Pointer to the next node
+                }
+            }
+        -------------------------------
+
+
+🚀 Operations on a Singly Linked List:-
+--------------------------------------
+    🎯 1. Creating a Linked List:-
+    -----------------------------
+            We start by defining a LinkedList class that keeps track of the head (first node) and tail (last node). 
+            It also stores the size of the list.
+            ✅ Example creating a Linked List:-
+            ----------------------------------
+                class SinglyLinkedList {
+                    constructor() {
+                    this.head = null;
+                    this.tail = null;
+                    this.size = 0;
+                    }
+                }
+            -----------------------------------
+            👉 Initially, head and tail are null because the list is empty.
+
+
+    🎯 2. Insertion in a Singly Linked List:-
+    ----------------------------------------
+        Insertion can happen in three ways:-
+        -----------------------------------
+            1️⃣  At the beginning (Head) – Takes O(1) time.
+            2️⃣  At the end (Tail) – Takes O(1) time (if we maintain a tail pointer).
+            3️⃣  At a specific position (Middle) – Takes O(n) time since we need to traverse.
+            🎯4.Inserting a Node at a Specific Index
+
+
+            1️⃣  Insertion at the Beginning:-
+            ------------------------------
+                💡 Thought Process (Pseudocode):-
+                ------------------------------------
+                    ✅ Step 1: Create a new node.
+                    ✅ Step 2: Assign the given value to the new node.
+                    ✅ Step 3: Check if the list is empty.
+                        🔹 If yes → Set head = newNode (new node becomes the head).
+                        🔹 If no → Continue to step 4.
+                    ✅ Step 4: Make the next pointer of newNode point to the current head.
+                    ✅ Step 5: Update head to newNode.
+                    ✅ Step 6: Increase the size of the linked list.
+
+                👉 We create a new node and point its next to the current head. Then update the head to this new node.
+                ✅️⃣ Example insertion at the Beginning:-
+                --------------------------------------
+                        insertAtBeginning(value) {
+                            let newNode = new Node(value);
+                            
+                            if (!this.head) {  
+                            this.head = newNode;
+                            this.tail = newNode;
+                            } else {
+                            newNode.next = this.head;
+                            this.head = newNode;
+                            }
+                            
+                            this.size++;
+                        }
+                👉 Example:
+                -----------
+                        Before: NULL
+                        Insert 10 → [10] → NULL
+                        Insert 20 → [20] → [10] → NULL
+                ------------------------------------------
+
+            2️⃣ Insertion at the End:-
+            ------------------------
+                💡 Thought Process (Pseudocode):-
+                    ----------------------------
+                        ✅ Step 1: Create a new node.
+                        ✅ Step 2: Assign the given value to the new node.
+                        ✅ Step 3: Check if the list is empty.
+                            🔹 If yes → Set head = newNode (new node becomes the head).
+                            🔹 If no → Continue to step 4.
+                        ✅ Step 4: Start from head and traverse the list until reaching the last node.
+                        ✅ Step 5: Set next of the last node to newNode (attach at the end).
+                        ✅ Step 6: Increase the size of the linked list.
+
+                👉 We create a new node and update the tail’s next to point to it. Then, update tail.
+                ✅ Example insertion at the End:-
+                --------------------------------
+                        insertAtEnd(value) {
+                            let newNode = new Node(value);
+                            
+                            if (!this.head) {
+                            this.head = newNode;
+                            this.tail = newNode;
+                            } else {
+                            this.tail.next = newNode;
+                            this.tail = newNode;
+                            }
+                            
+                            this.size++;
+                        }
+                👉 Example:-
+                -----------
+                    Before: [10] → NULL
+                    Insert 20 → [10] → [20] → NULL
+                    Insert 30 → [10] → [20] → [30] → NULL
+                ---------------------------------------------
+
+
+            3️⃣ Insertion at a Specific Position:-
+            ------------------------------------
+                💡 Thought Process (Pseudocode):-
+                    ----------------------------
+                        ✅ Step 1: Check if the index is valid.
+                            🔹 If index < 0 or index > size → Print error message.
+                        ✅ Step 2: If inserting at index 0, call InsertAtBeginning().
+                        ✅ Step 3: If inserting at the end (index == size), call InsertAtEnd().
+                        ✅ Step 4: Create a new node.
+                        ✅ Step 5: Start from head and traverse until reaching the node before the target position.
+                        ✅ Step 6: Update the new node's next pointer to point to the next node.
+                        ✅ Step 7: Update the previous node's next pointer to point to the new node.
+                        ✅ Step 8: Increase the size of the linked list.
+
+                👉 We traverse to the position before inserting.
+                ✅ Example insertion at a Specific Position :-
+                ---------------------------------------------
+                        insertAtIndex(value, index) {
+                            if (index < 0 || index > this.size) return console.log("Invalid index!");
+                        
+                            if (index === 0) return this.insertAtBeginning(value);
+                            if (index === this.size) return this.insertAtEnd(value);
+                        
+                            let newNode = new Node(value);
+                            let current = this.head;
+                            let previous;
+                            let count = 0;
+                        
+                            while (count < index) {
+                            previous = current;
+                            current = current.next;
+                            count++;
+                            }
+                        
+                            previous.next = newNode;
+                            newNode.next = current;
+                            this.size++;
+                        }
+                ------------------------------------------------
+
+
+            🎯 4. Inserting a Node at a Specific Index:-
+            -------------------------------------------
+                💡 Thought Process (Pseudocode):-
+                --------------------------------
+                    ✅ Step 1: If inserting at the start (index 0), update head.
+                    ✅ Step 2: If inserting at the last position, append at the end.
+                    ✅ Step 3: Otherwise, find the node at index - 1.
+                    ✅ Step 4: Create a new node and adjust the next pointers.
+                    ✅ Step 5: If the index is out of range, return false.
+                    
+                    👉 Properly adjust pointers when inserting.
+                    
+                    ✅ Example insertAtIndex(index, value) Implementation:
+                    ------------------------------------------------------
+                        insertAtIndex(index, value) {
+                            if (index < 0 || index > this.length) return false;
+                            if (index === 0) return this.unshift(value);
+                            if (index === this.length) return this.push(value);
+                        
+                            let prev = this.get(index - 1);
+                            if (!prev) return false;
+                        
+                            let newNode = new Node(value);
+                            newNode.next = prev.next;
+                            prev.next = newNode;
+                            this.length++;
+                            return true;
+                        }
+                    
+
+    🎯 3. Deletion in a Singly Linked List:-
+    ---------------------------------------
+        We can delete:-
+        --------------
+            1️⃣  From the beginning (O(1))
+            2️⃣  From the end (O(n), since we need to find the second last node)
+            3️⃣  From a specific position (O(n))
+            🎯4.Deleting a Node at a Specific Index
+
+            1️⃣ Deletion From the beginning:-
+            --------------------------------
+                💡 Thought Process (Pseudocode):-
+                    ----------------------------
+                        ✅ Step 1: Check if the list is empty.
+                            🔹 If yes → Print "List is empty" and return.
+                        ✅ Step 2: Store the current head in a temporary variable.
+                        ✅ Step 3: Move head to head.next (update head to next node).
+                        ✅ Step 4: Delete the old head node.
+                        ✅ Step 5: Decrease the size of the linked list.
+
+                ✅ Example Deletion From the beginning:-
+                ---------------------------------------
+                        deleteFromBeginning() {
+                            if (!this.head) return console.log("List is empty!");
+                        
+                            this.head = this.head.next;
+                            this.size--;
+                        }
+                ---------------------------------------
+
+            2️⃣ Deletion from the End:-
+            -------------------------
+                💡 Thought Process (Pseudocode):-
+                    ----------------------------
+                        ✅ Step 1: Check if the list is empty.
+                            🔹 If yes → Print "List is empty" and return.
+                        ✅ Step 2: If there is only one node, set head = NULL.
+                        ✅ Step 3: Start from head and traverse to the second-last node.
+                        ✅ Step 4: Set next of second-last node to NULL (remove last node).
+                        ✅ Step 5: Delete the last node.
+                        ✅ Step 6: Decrease the size of the linked list.
+
+                👉 We find the second-last node and set tail to it.
+                ✅ Example Deletion from the End:-
+                ---------------------------------
+                        deleteFromEnd() {
+                            if (!this.head) return console.log("List is empty!");
+                        
+                            let current = this.head;
+                            let previous = null;
+                        
+                            while (current.next) {
+                            previous = current;
+                            current = current.next;
+                            }
+                        
+                            previous.next = null;
+                            this.tail = previous;
+                            this.size--;
+                        }
+                -----------------------------------
+
+            3️⃣ Deletion from a Specific Position:-
+            -------------------------------------
+                💡 Thought Process (Pseudocode):-
+                    ----------------------------
+                        ✅ Step 1: Check if the list is empty.
+                            🔹 If yes → Print "List is empty" and return.
+                        ✅ Step 2: Check if the given index is valid.
+                            🔹 If index < 0 or index ≥ size → Print "Invalid index" and return.
+                        ✅ Step 3: If deleting the first node (index == 0), call deleteFromBeginning().
+                        ✅ Step 4: Start from head and traverse to the node before the target position.
+                        ✅ Step 5: Store the node to be deleted in a temporary variable.
+                        ✅ Step 6: Update the next pointer of the previous node to skip the target node (unlink it).
+                        ✅ Step 7: Delete the target node.
+                        ✅ Step 8: Decrease the size of the linked list.
+
+                ✅ Example Deletion from a Specific Position:-
+                ---------------------------------------------
+                        deleteAtIndex(index) {
+                            if (index < 0 || index >= this.size) return console.log("Invalid index!");
+                        
+                            if (index === 0) return this.deleteFromBeginning();
+                        
+                            let current = this.head;
+                            let previous;
+                            let count = 0;
+                        
+                            while (count < index) {
+                            previous = current;
+                            current = current.next;
+                            count++;
+                            }
+                        
+                            previous.next = current.next;
+                            this.size--;
+                        }
+                ------------------------------------------------
+
+            🎯 4. Deleting a Node at a Specific Index:-
+            ------------------------------------------
+                    💡 Thought Process (Pseudocode):
+                    ---------------------------------
+                    ✅ Step 1: If deleting the first node, update head.
+                    ✅ Step 2: If deleting the last node, update tail.
+                    ✅ Step 3: Otherwise, find the previous node (index - 1).
+                    ✅ Step 4: Update pointers to remove the node.
+                    ✅ Step 5: If the index is out of bounds, return false.
+                    
+                    👉 Properly adjust pointers when deleting.
+                    
+                    ✅ Example deleteAtIndex(index) Implementation:
+                    ------------------------------------------------------
+                        deleteAtIndex(index) {
+                            if (index < 0 || index >= this.length) return false;
+                            if (index === 0) return this.shift();
+                            if (index === this.length - 1) return this.pop();
+                        
+                            let prev = this.get(index - 1);
+                            if (!prev || !prev.next) return false;
+                        
+                            let removed = prev.next;
+                            prev.next = removed.next;
+                            this.length--;
+                            return removed;
+                        }
+                    ------------------------------------------------------
+                    
+
+    🎯 4. Searching in a Singly Linked List:-
+    ----------------------------------------
+        💡 Thought Process (Pseudocode):-
+            ----------------------------
+                ✅ Step 1: Start from the head of the list.
+                ✅ Step 2: Initialize an index counter to 0.
+                ✅ Step 3: While traversing the list, check if the current node's value matches the search value.
+                ✅ Step 4: If found, return the index.
+                ✅ Step 5: If the loop finishes without finding the value, return "Not Found".
+
+        👉 We traverse the list and compare each value.
+        ✅ Example Searching in a Singly Linked List:-
+        ---------------------------------------------
+                search(value) {
+                    let current = this.head;
+                    let index = 0;
+                
+                    while (current) {
+                    if (current.value === value) return `Found at index ${index}`;
+                    current = current.next;
+                    index++;
+                    }
+                
+                    return "Not found";
+                }
+        ------------------------------------------------
+
+
+    🎯 5. Getting a Node by Index in a Singly Linked List:-
+    ------------------------------------------------------
+        
+        💡 Thought Process (Pseudocode):
+        ------------------------------------
+            ✅ Step 1: Start from the head of the list.
+            ✅ Step 2: Initialize an index counter to 0.
+            ✅ Step 3: Traverse the list while keeping track of the current index.
+            ✅ Step 4: If the index matches the given index, return the node.
+            ✅ Step 5: If the index is out of bounds, return null.
+            
+            👉 We traverse the list until we reach the required index.
+            
+            ✅ Example get(index) Implementation:-
+            ------------------------------------
+                get(index) {
+                    if (index < 0) return null;
+                    let current = this.head;
+                    let counter = 0;
+                
+                    while (current) {
+                        if (counter === index) return current;
+                        current = current.next;
+                        counter++;
+                    }
+                
+                    return null;
+                }
+            ------------------------------------------
+            
+            
+    🎯 2. Setting a Node’s Value at a Given Index:-
+    ----------------------------------------------
+
+        💡 Thought Process (Pseudocode):-
+        ---------------------------------
+            ✅ Step 1: Use the get(index) method to locate the node.
+            ✅ Step 2: If the node exists, update its value.
+            ✅ Step 3: If the index is invalid, return false.
+
+            👉 First, find the node; then update its value.
+
+            ✅ Example set(index, value) Implementation:-
+            ---------------------------------------------
+                set(index, value) {
+                    let foundNode = this.get(index);
+                    if (!foundNode) return false;
+                    foundNode.value = value;
+                    return true;
+                }
+            ---------------------------------------------
+
+
+    🎯 5. Reversing a Singly Linked List:-
+    -------------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                ✅ Step 1: Initialize prev as null, current as head, and next as null.
+                ✅ Step 2: Iterate through the list, updating next pointers.
+                ✅ Step 3: Reverse the links (current.next = prev).
+                ✅ Step 4: Move prev and current one step forward.
+                ✅ Step 5: At the end, update head to prev.
+                
+                👉 Reverse the links while traversing the list.
+                
+                ✅ Example reverse() Implementation:
+                ------------------------------------------------------
+                    reverse() {
+                        let prev = null;
+                        let current = this.head;
+                        let next = null;
+                    
+                        while (current) {
+                            next = current.next;
+                            current.next = prev;
+                            prev = current;
+                            current = next;
+                        }
+                    
+                        this.head = prev;
+                        return this;
+                    }
+                ------------------------------------------------------
+
+
+🚀 Final Linked List Class with All Methods:-
+---------------------------------------------
+        class Node {
+            constructor(value) {
+            this.value = value;
+            this.next = null;
+            }
+        }
+        
+        class SinglyLinkedList {
+            constructor() {
+            this.head = null;
+            this.tail = null;
+            this.size = 0;
+            }
+        
+            insertAtBeginning(value) {
+            let newNode = new Node(value);
+            if (!this.head) {
+                this.head = newNode;
+                this.tail = newNode;
+            } else {
+                newNode.next = this.head;
+                this.head = newNode;
+            }
+            this.size++;
+            }
+        
+            insertAtEnd(value) {
+            let newNode = new Node(value);
+            if (!this.head) {
+                this.head = newNode;
+                this.tail = newNode;
+            } else {
+                this.tail.next = newNode;
+                this.tail = newNode;
+            }
+            this.size++;
+            }
+
+            insertAtIndex(value, index) {
+                if (index < 0 || index > this.size) return console.log("Invalid index!");
+                if (index === 0) return this.insertAtBeginning(value);
+                if (index === this.size) return this.insertAtEnd(value);
+                
+                let newNode = new Node(value);
+                let current = this.head;
+                let previous;
+                let count = 0;
+                
+                while (count < index) {
+                    previous = current;
+                    current = current.next;
+                    count++;
+                }
+                
+                previous.next = newNode;
+                newNode.next = current;
+                this.size++;
+            }
+
+            deleteFromBeginning() {
+            if (!this.head) return console.log("List is empty!");
+            this.head = this.head.next;
+            this.size--;
+            }
+        
+            deleteFromEnd() {
+            if (!this.head) return console.log("List is empty!");
+            let current = this.head;
+            let previous = null;
+            while (current.next) {
+                previous = current;
+                current = current.next;
+            }
+            previous.next = null;
+            this.tail = previous;
+            this.size--;
+            }
+
+            deleteAtIndex(index) {
+                if (index < 0 || index >= this.size) return console.log("Invalid index!");
+                if (index === 0) return this.deleteFromBeginning();
+                if (index === this.size - 1) return this.deleteFromEnd();
+                
+                let current = this.head;
+                let previous;
+                let count = 0;
+                
+                while (count < index) {
+                    previous = current;
+                    current = current.next;
+                    count++;
+                }
+                
+                previous.next = current.next;
+                this.size--;
+            }
+
+            search(value) {
+            let current = this.head;
+            let index = 0;
+            while (current) {
+                if (current.value === value) return `Found at index ${index}`;
+                current = current.next;
+                index++;
+            }
+            return "Not found";
+            }
+
+            get(index) {
+                if (index < 0 || index >= this.size) return console.log("Invalid index!");
+                let current = this.head;
+                let count = 0;
+                while (count < index) {
+                    current = current.next;
+                    count++;
+                }
+                return current.value;
+            }
+        
+            set(index, value) {
+                if (index < 0 || index >= this.size) return console.log("Invalid index!");
+                let current = this.head;
+                let count = 0;
+                while (count < index) {
+                    current = current.next;
+                    count++;
+                }
+                current.value = value;
+            }
+        
+            reverse() {
+                let prev = null;
+                let current = this.head;
+                this.tail = this.head;
+                while (current) {
+                    let next = current.next;
+                    current.next = prev;
+                    prev = current;
+                    current = next;
+                }
+                this.head = prev;
+            }
+        
+            printList() {
+                let current = this.head;
+                let listValues = "";
+                while (current) {
+                    listValues += current.value + " -> ";
+                    current = current.next;
+                }
+                console.log(listValues + "NULL");
+            }
+        }
+        const list = new SinglyLinkedList();
+        // Example usage:-
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtBeginning(5);
+        list.insertAtIndex(15, 2);
+        list.printList(); // 5 -> 10 -> 15 -> 20 -> 30 -> NULL
+        console.log(list.get(2)); // 15
+        list.set(2, 25);
+        list.printList(); // 5 -> 10 -> 25 -> 20 -> 30 -> NULL
+        list.reverse();
+        list.printList(); // 30 -> 20 -> 25 -> 10 -> 5 -> NULL
+        
+        
+⏳ Time Complexity of Singly Linked List (SLL):-
+------------------------------------------------
+        Since nodes are linked linearly (one direction), operations have different time complexities based on how many 
+        nodes need to be traversed.
+
+📊 Time Complexity of SLL Operations:-
+-------------------------------------
+
+Operation	                        Best Case(Ω)	Average Case (Θ)	Worst Case (O)	Explanation
+Insert at Beginning (unshift)	       O(1)	             O(1)	            O(1)	    Insert a node at the start by updating head. No traversal needed.
+Insert at End (push)	               O(1)	             O(n)	            O(n)	    In worst case, we traverse n nodes to find the last node before inserting.
+Insert at Middle (insertAt(index))	   O(1)	             O(n)	            O(n)	    Requires traversal to find the index before inserting.
+Delete at Beginning (shift)	           O(1)	             O(1)	            O(1)	    Just update head to head.next. No traversal needed.
+Delete at End (pop)	                   O(1)	             O(n)	            O(n)	    Need to traverse to find the second last node before deleting.
+Delete at Middle (deleteAt(index))	   O(1)	             O(n)	            O(n)	    Traversal required to find the node before the one to delete.
+Search by Index (get(index))	       O(1)	             O(n)	            O(n)	    Need to traverse n nodes in worst case.
+Search by Value (find(value))	       O(1)	             O(n)	            O(n)	    Need to traverse n nodes in worst case.
+Reverse SLL (reverse())	               O(1)	             O(n)	            O(n)	    Traverse all nodes once to reverse links.
+
+  
+🎯 Conclusion:-
+--------------
+    ✅ Singly Linked Lists allow efficient insertions and deletions compared to arrays.
+    ✅ They use dynamic memory allocation, so size isn't fixed.
+    ✅ Drawback: They have O(n) search time, unlike arrays which have O(1) access via index.
+    
+    🚀 Now you understand everything about Singly Linked Lists! Happy coding! 💻
+            
+                  
+                    
+
+                

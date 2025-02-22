@@ -1,0 +1,24 @@
+/=============================== Exponential Search ===================================================/
+
+Algorithm:
+    •Exponential search is used for unbounded or infinite lists. It works by first finding a range where the element may exist, and then applying binary search within that range.
+
+Steps:
+    • Start with i = 1, keep doubling i (i.e., 1, 2, 4, 8, …) until the value at index i is greater than or equal to the target.
+    • Once a valid range is found, perform binary search within that range.
+
+Use Case:
+    • Efficient for searching in unbounded or infinite lists.
+
+Time Complexity:
+    • Best case: O(log n)
+    • Worst case: O(log n)
+
+Dry Run Example: Array: [10, 20, 30, 40, 50, 60, 70, 80, 90],Target: 40
+
+Step-by-step:
+    • Start with i = 1 → value 20.
+    • Next, i = 2 → value 30.
+    • Then, i = 4 → value 50 (greater than 40).
+    • Now, apply binary search between indices 2 and 4.
+    • Find 40 at index 3.

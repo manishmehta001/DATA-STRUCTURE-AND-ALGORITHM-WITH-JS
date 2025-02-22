@@ -1,0 +1,28 @@
+Sorting Algorithms (Easy Explanation & Deep Dive into Bubble Sort):-
+    Sorting is the process of arranging elements in order, such as ascending (1,2,3...) or descending (10,9,8...). We use sorting to make searching faster, to organize data properly, and to optimize performance in real-world applications.
+
+1️⃣ Types of Sorting Algorithms
+    There are two main types of sorting algorithms:
+        1.Comparison-Based Sorting (Compare elements and swap if needed)
+        2.Non-Comparison-Based Sorting (Use properties like counting to sort faster)
+
+2️⃣ Comparison-Based Sorting Algorithms
+These algorithms compare elements to determine their correct position.
+Sorting Algorithm	                        Best Case	    Worst Case	Time Complexity 	        Stable?    In-Place?
+    Bubble Sort(Simple but slow)	        O(n)	        O(n²)	    Slow for large data	        ✅ Yes	  ✅ Yes
+    Selection Sort(Finds min and swaps)	    O(n²)	        O(n²)	    Always slow	                ❌ No	  ✅ Yes
+    Insertion Sort(Like sorting cards)	    O(n)	        O(n²)	    Good for small data	        ✅ Yes	  ✅ Yes
+    Merge Sort(Divide & merge)	            O(n log n)	    O(n log n)	Fast but uses extra space	✅ Yes	  ❌ No
+    Quick Sort(Pick a pivot & sort)	        O(n log n)	    O(n²)	    Fast in general	            ❌ No	  ✅ Yes
+    Heap Sort(Heapify & extract) 	        O(n log n)	    O(n log n)	Fast but not stable	        ❌ No	  ✅ Yes
+
+    ✅ Stable Sorting → Keeps the order of duplicate elements.
+    ✅ In-Place Sorting → Doesn’t use extra memory.       
+
+3️⃣ Non-Comparison-Based Sorting Algorithms
+    These algorithms don’t compare elements but use different techniques.
+    
+        Sorting Algorithm	Best Case	Worst Case	When to Use?
+        Counting Sort	    O(n + k)	O(n + k)	When numbers have a limited range
+        Radix Sort	        O(nk)	    O(nk)	    Sorting numbers, like phone numbers
+        Bucket Sort	        O(n + k)	O(n²)	    Sorting floating-point numbers

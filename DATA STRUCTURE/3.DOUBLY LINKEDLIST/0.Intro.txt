@@ -1,0 +1,727 @@
+/-------------------------🚀 Doubly Linked List (DLL) - Complete Guide 🚀-------------------------------------------/
+
+
+🎯 What is a Doubly Linked List?:-
+---------------------------------
+    A Doubly Linked List (DLL) is a linear data structure where each node contains:
+    👉 Data (Value) – The actual value stored in the node.
+    👉 Next (Pointer to next node) – A reference to the next node in the list.
+    👉 Prev (Pointer to previous node) – A reference to the previous node in the list.
+
+    Unlike a Singly Linked List, a DLL allows traversal in both forward and backward directions.
+
+
+💡 Real-World Analogy of Doubly Linked List:-
+--------------------------------------------
+    Imagine a double-ended train 🚆, where each coach is linked to both the next and previous coach.
+    Each coach has passengers (data) and two connectors (prev & next) linking it to the neighboring coaches.
+
+    NULL ← [ Coach 1 ] ⇄ [ Coach 2 ] ⇄ [ Coach 3 ] → NULL
+    ------------------------------------------------------
+    Here,
+    ✅ Each coach is a node
+    ✅ Connectors are pointers (prev & next)
+    ✅ Train moves in both directions (just like a DLL)
+
+
+🏗 Structure of a Node in a Doubly Linked List:-
+----------------------------------------------
+    A node in a Doubly Linked List consists of:
+    👉 Data - The value stored in the node.
+    👉 Next - Pointer to the next node.
+    👉 Prev - Pointer to the previous node.
+
+    ✅ Example Node in JavaScript:-
+    ------------------------------
+        class Node {
+            constructor(value) {
+                this.value = value;  // Data part
+                this.next = null;    // Pointer to next node
+                this.prev = null;    // Pointer to previous node
+            }
+        }
+    --------------------------------
+
+
+🚀 Operations on a Doubly Linked List:-
+--------------------------------------
+    🎯 1. Creating a Doubly Linked List:-
+    ------------------------------------
+        👉 We define a DoublyLinkedList class that tracks head (first node), tail (last node), and size.
+        ✅ Example creating a Linked List:-
+        ----------------------------------
+            class DoublyLinkedList {
+                constructor() {
+                    this.head = null;
+                    this.tail = null;
+                    this.size = 0;
+                }
+            }
+        
+        👉 Initially, head and tail are null since the list is empty.
+
+    🎯 2. Insertion in a Doubly Linked List:-
+    ----------------------------------------
+        Insertion can happen in three ways:
+        1️⃣ At the beginning (O(1) time)
+        2️⃣ At the end (O(1) time)
+        3️⃣ At a specific position (O(n) time)
+
+        🟢 1️⃣ Insertion at the Beginning:-
+        ---------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+            🟢 Step 1: Create a new node.
+                👉 Allocate memory for a new node.
+                👉 Assign the given value to the node’s data field.
+                👉 Initialize next and prev pointers as null.
+            
+            🟢 Step 2: Check if the list is empty.
+                👉 If head == null, it means the list has no nodes.
+            
+            🟢 Step 3: If the list is empty, set head = newNode and tail = newNode.
+                👉 Assign newNode to head, making it the first node.
+                👉 Assign newNode to tail, since it's also the last node.
+                👉 newNode.next = null and newNode.prev = null remain unchanged.
+            
+            🟢 Step 4: If the list is not empty, update the new node’s next pointer to point to the current head.
+                👉 newNode.next = head (New node points to the existing head).
+            
+            🟢 Step 5: Update the current head’s prev pointer to point to the new node.
+                👉 head.prev = newNode (Old head now links back to new node).
+            
+            🟢 Step 6: Move the head pointer to the new node.
+                👉 head = newNode (New node becomes the new head).
+            
+            🟢 Step 7: Increase the size of the linked list (if size tracking is implemented).
+                👉 size++ (Increment the count of nodes in the list).
+            
+            🟢 Step 8: Ensure the tail remains unchanged.
+                👉 If there was only one node before, tail remains the same.
+
+            ✅ Example Code:-
+            ----------------
+                    class Node {
+                        constructor(value) {
+                            this.value = value;
+                            this.next = null;
+                            this.prev = null;
+                        }
+                    }
+                    
+                    class DoublyLinkedList {
+                        constructor() {
+                            this.head = null;
+                            this.tail = null;
+                            this.size = 0;
+                        }
+                    
+                        insertAtBeginning(value) {
+                            let newNode = new Node(value);
+                    
+                            if (!this.head) {  
+                                this.head = newNode;
+                                this.tail = newNode;
+                            } else {
+                                newNode.next = this.head;  
+                                this.head.prev = newNode;  
+                                this.head = newNode;  
+                            }
+                    
+                            this.size++;
+                        }
+                    
+                        printList() {
+                            let temp = this.head;
+                            let output = "";
+                            while (temp) {
+                                output += `[${temp.value}] ⇄ `;
+                                temp = temp.next;
+                            }
+                            console.log(output + "NULL");
+                        }
+                    }
+                    let dll = new DoublyLinkedList();
+
+                    dll.insertAtBeginning(10);
+                    dll.insertAtBeginning(20);
+                    dll.insertAtBeginning(30);
+
+                    dll.printList();  // Output: [30] ⇄ [20] ⇄ [10] ⇄ NULL
+            ------------------------------------------------------------------------
+
+        🟢 3️⃣ Insertion at a Specific Position:-
+        ----------------------------------------
+             💡 Thought Process (Pseudocode):-
+             --------------------------------
+                    🟢 Step 1: Check if the position is valid.
+                    👉 If position < 0 or position > size, return an error.
+                    
+                    🟢 Step 2: If position == 0, call insertAtBeginning().
+                    👉 Directly insert at the start.
+                    
+                    🟢 Step 3: If position == size, call insertAtEnd().
+                    👉 Directly insert at the end.
+                    
+                    🟢 Step 4: Traverse the list to find the position.
+                    👉 Use a loop to reach (position - 1).
+                    
+                    🟢 Step 5: Create a new node and update pointers.
+                    👉 Update prev.next and next.prev.
+                    
+                    🟢 Step 6: Increase the size of the list.
+                    👉 size++.
+
+            ✅ Example Code:-
+            -----------------
+                    insertAtPosition(value, position) {
+                        if (position < 0 || position > this.size) {
+                            console.log("Invalid position");
+                            return;
+                        }
+                    
+                        if (position === 0) {
+                            this.insertAtBeginning(value);
+                            return;
+                        }
+                    
+                        if (position === this.size) {
+                            this.insertAtEnd(value);
+                            return;
+                        }
+                    
+                        let newNode = new Node(value);
+                        let temp = this.head;
+                    
+                        for (let i = 0; i < position - 1; i++) {
+                            temp = temp.next;
+                        }
+                    
+                        newNode.next = temp.next;
+                        newNode.prev = temp;
+                        temp.next.prev = newNode;
+                        temp.next = newNode;
+                    
+                        this.size++;
+                    }
+            --------------------------
+
+        🟢 2️⃣ Insertion at the End:-
+        ----------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                🟢 Step 1: Create a new node.
+                👉 Allocate memory for a new node.
+                👉 Assign the given value to the node’s value field.
+                👉 Initialize next and prev pointers as null.
+                
+                🟢 Step 2: Check if the list is empty.
+                👉 If head == null, it means the list has no nodes.
+                
+                🟢 Step 3: If the list is empty, set head = newNode and tail = newNode.
+                👉 Assign newNode to head, making it the first node.
+                👉 Assign newNode to tail, since it's also the last node.
+                👉 newNode.next = null and newNode.prev = null remain unchanged.
+                
+                🟢 Step 4: If the list is not empty, update the current tail’s next pointer to the new node.
+                👉 tail.next = newNode (Old tail now links forward to new node).
+                
+                🟢 Step 5: Update the new node’s prev pointer to point to the current tail.
+                👉 newNode.prev = tail (New node links back to the old tail).
+                
+                🟢 Step 6: Move the tail pointer to the new node.
+                👉 tail = newNode (New node becomes the new tail).
+                
+                🟢 Step 7: Increase the size of the linked list.
+                👉 size++ (Increment the count of nodes in the list).
+                
+                🟢 Step 8: Ensure the head remains unchanged.
+                👉 If there was only one node before, head remains the same.
+
+            ✅ Example Code:-
+            ----------------
+                    insertAtEnd(value) {
+                        let newNode = new Node(value);
+                    
+                        if (!this.tail) {  
+                            this.head = newNode;
+                            this.tail = newNode;
+                        } else {
+                            this.tail.next = newNode;  
+                            newNode.prev = this.tail;  
+                            this.tail = newNode;  
+                        }
+                    
+                        this.size++;
+                    }
+                    
+            -------------------------
+
+        🟢 1️⃣ Deletion at the Beginning:-
+        ---------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                🟢 Step 1: Check if the list is empty.
+                👉 If head == null, return an error or message (List is empty).
+                
+                🟢 Step 2: If the list has only one node, set head = null and tail = null.
+                👉 The list becomes empty after deletion.
+                
+                🟢 Step 3: If multiple nodes exist, update head to head.next.
+                👉 head = head.next (Move head pointer to the next node).
+                
+                🟢 Step 4: Update the new head’s prev pointer to null.
+                👉 head.prev = null (Detach previous head from the list).
+                
+                🟢 Step 5: Decrease the size of the linked list.
+                👉 size-- (Reduce the node count).
+
+            ✅ Example Code:-
+            ----------------
+                deleteFromBeginning() {
+                    if (!this.head) {
+                        console.log("List is empty");
+                        return;
+                    }
+                
+                    if (this.head === this.tail) {  // Only one node
+                        this.head = null;
+                        this.tail = null;
+                    } else {
+                        this.head = this.head.next;
+                        this.head.prev = null;
+                    }
+                
+                    this.size--;
+                }
+            -------------------------------------
+
+        🟢 2️⃣ Deletion at the End:-
+        ---------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                🟢 Step 1: Check if the list is empty.
+                👉 If head == null, return an error (List is empty).
+
+                🟢 Step 2: If there is only one node, set head = null and tail = null.
+                👉 The list becomes empty after deletion.
+
+                🟢 Step 3: If multiple nodes exist, update tail to tail.prev.
+                👉 tail = tail.prev (Move tail pointer to the previous node).
+
+                🟢 Step 4: Set the new tail’s next pointer to null.
+                👉 tail.next = null (Detach old tail from the list).
+
+                🟢 Step 5: Decrease the size of the linked list.
+                👉 size-- (Reduce node count).
+
+            ✅ Example Code:-
+            ----------------
+                deleteFromEnd() {
+                    if (!this.tail) {
+                        console.log("List is empty");
+                        return;
+                    }
+                
+                    if (this.head === this.tail) {  // Only one node
+                        this.head = null;
+                        this.tail = null;
+                    } else {
+                        this.tail = this.tail.prev;
+                        this.tail.next = null;
+                    }
+                
+                    this.size--;
+                }
+            -----------------------------------
+
+        🟢 3️⃣ Deletion at a Specific Position:-
+        ---------------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                🟢 Step 1: Check if the position is valid.
+                👉 If position < 0 || position >= size, return an error.
+                
+                🟢 Step 2: If position == 0, call deleteFromBeginning().
+                👉 Directly remove the first node.
+                
+                🟢 Step 3: If position == size - 1, call deleteFromEnd().
+                👉 Directly remove the last node.
+                
+                🟢 Step 4: Traverse the list to find the node at position.
+                👉 Use a loop to reach (position - 1).
+                
+                🟢 Step 5: Update pointers to remove the node.
+                👉 temp.prev.next = temp.next
+                👉 temp.next.prev = temp.prev
+                
+                🟢 Step 6: Decrease the size of the linked list.
+                👉 size--
+
+            ✅ Example Code:-
+            -----------------
+                deleteAtPosition(position) {
+                    if (position < 0 || position >= this.size) {
+                        console.log("Invalid position");
+                        return;
+                    }
+                
+                    if (position === 0) {
+                        this.deleteFromBeginning();
+                        return;
+                    }
+                
+                    if (position === this.size - 1) {
+                        this.deleteFromEnd();
+                        return;
+                    }
+                
+                    let temp = this.head;
+                
+                    for (let i = 0; i < position; i++) {
+                        temp = temp.next;
+                    }
+                
+                    temp.prev.next = temp.next;
+                    temp.next.prev = temp.prev;
+                
+                    this.size--;
+                }
+            -----------------------------------------
+
+        🟢 1️⃣ Get (Retrieve a Node at a Specific Position):-
+        ---------------------------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                🟢 Step 1: Check if the position is valid.
+                👉 If position < 0 || position >= size, return an error (Invalid position).
+
+                🟢 Step 2: Decide the traversal direction for efficiency.
+                👉 If position < size / 2, start from head.
+                👉 If position >= size / 2, start from tail.
+
+                🟢 Step 3: Traverse the list to reach the required position.
+                👉 Use a loop to move either forward (next) or backward (prev).
+
+                🟢 Step 4: Return the found node's value.
+                👉 Output the node's value (temp.value).
+
+            ✅ Example Code:-
+            ----------------
+                get(position) {
+                    if (position < 0 || position >= this.size) {
+                        console.log("Invalid position");
+                        return null;
+                    }
+                
+                    let temp;
+                    if (position < this.size / 2) {
+                        temp = this.head;
+                        for (let i = 0; i < position; i++) {
+                            temp = temp.next;
+                        }
+                    } else {
+                        temp = this.tail;
+                        for (let i = this.size - 1; i > position; i--) {
+                            temp = temp.prev;
+                        }
+                    }
+                
+                    return temp.value;
+                }
+            --------------------------
+
+        🟢 2️⃣ Set (Update a Node’s Value at a Specific Position):-
+        ----------------------------------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                🟢 Step 1: Check if the position is valid.
+                👉 If position < 0 || position >= size, return an error (Invalid position).
+                
+                🟢 Step 2: Decide the traversal direction for efficiency.
+                👉 If position < size / 2, start from head.
+                👉 If position >= size / 2, start from tail.
+                
+                🟢 Step 3: Traverse the list to reach the required position.
+                👉 Use a loop to move either forward (next) or backward (prev).
+                
+                🟢 Step 4: Update the node’s value.
+                👉 Assign newValue to temp.value.
+
+            ✅ Example Code:-
+            ------------------
+                set(position, newValue) {
+                    if (position < 0 || position >= this.size) {
+                        console.log("Invalid position");
+                        return;
+                    }
+                
+                    let temp;
+                    if (position < this.size / 2) {
+                        temp = this.head;
+                        for (let i = 0; i < position; i++) {
+                            temp = temp.next;
+                        }
+                    } else {
+                        temp = this.tail;
+                        for (let i = this.size - 1; i > position; i--) {
+                            temp = temp.prev;
+                        }
+                    }
+                
+                    temp.value = newValue;
+                }
+            -----------------------------------------
+
+
+🚀 Final Doubly Linked List Class with All Methods:-
+---------------------------------------------------
+        class Node {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+                this.prev = null;
+            }
+        }
+
+        class DoublyLinkedList {
+            constructor() {
+                this.head = null;
+                this.tail = null;
+                this.size = 0;
+            }
+
+            insertAtBeginning(value) {
+                let newNode = new Node(value);
+                if (!this.head) {
+                    this.head = newNode;
+                    this.tail = newNode;
+                } else {
+                    newNode.next = this.head;
+                    this.head.prev = newNode;
+                    this.head = newNode;
+                }
+                this.size++;
+            }
+
+            insertAtEnd(value) {
+                let newNode = new Node(value);
+                if (!this.head) {
+                    this.head = newNode;
+                    this.tail = newNode;
+                } else {
+                    this.tail.next = newNode;
+                    newNode.prev = this.tail;
+                    this.tail = newNode;
+                }
+                this.size++;
+            }
+
+            insertAtIndex(value, index) {
+                if (index < 0 || index > this.size) return console.log("Invalid index!");
+                if (index === 0) return this.insertAtBeginning(value);
+                if (index === this.size) return this.insertAtEnd(value);
+
+                let newNode = new Node(value);
+                let temp = this.head;
+                for (let i = 0; i < index - 1; i++) {
+                    temp = temp.next;
+                }
+                newNode.next = temp.next;
+                temp.next.prev = newNode;
+                temp.next = newNode;
+                newNode.prev = temp;
+                this.size++;
+            }
+
+            deleteFromBeginning() {
+                if (!this.head) return console.log("List is empty!");
+                this.head = this.head.next;
+                if (this.head) this.head.prev = null;
+                else this.tail = null;
+                this.size--;
+            }
+
+            deleteFromEnd() {
+                if (!this.tail) return console.log("List is empty!");
+                this.tail = this.tail.prev;
+                if (this.tail) this.tail.next = null;
+                else this.head = null;
+                this.size--;
+            }
+
+            deleteAtIndex(index) {
+                if (index < 0 || index >= this.size) return console.log("Invalid index!");
+                if (index === 0) return this.deleteFromBeginning();
+                if (index === this.size - 1) return this.deleteFromEnd();
+
+                let temp = this.head;
+                for (let i = 0; i < index; i++) {
+                    temp = temp.next;
+                }
+                temp.prev.next = temp.next;
+                temp.next.prev = temp.prev;
+                this.size--;
+            }
+
+            search(value) {
+                let current = this.head;
+                let index = 0;
+                while (current) {
+                    if (current.value === value) return `Found at index ${index}`;
+                    current = current.next;
+                    index++;
+                }
+                return "Not found";
+            }
+
+            get(index) {
+                if (index < 0 || index >= this.size) return console.log("Invalid index!");
+                let temp = this.head;
+                for (let i = 0; i < index; i++) {
+                    temp = temp.next;
+                }
+                return temp.value;
+            }
+
+            set(index, value) {
+                if (index < 0 || index >= this.size) return console.log("Invalid index!");
+                let temp = this.head;
+                for (let i = 0; i < index; i++) {
+                    temp = temp.next;
+                }
+                temp.value = value;
+            }
+
+            reverse() {
+                let temp = null;
+                let current = this.head;
+                this.tail = this.head;
+                while (current) {
+                    temp = current.prev;
+                    current.prev = current.next;
+                    current.next = temp;
+                    current = current.prev;
+                }
+                if (temp) this.head = temp.prev;
+            }
+
+            printList() {
+                let current = this.head;
+                let listValues = "";
+                while (current) {
+                    listValues += current.value + " <-> ";
+                    current = current.next;
+                }
+                console.log(listValues + "NULL");
+            }
+        }
+
+        const list = new DoublyLinkedList();
+        // Example usage:-
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtEnd(30);
+        list.insertAtBeginning(5);
+        list.insertAtIndex(15, 2);
+        list.printList(); // 5 <-> 10 <-> 15 <-> 20 <-> 30 <-> NULL
+        console.log(list.get(2)); // 15
+        list.set(2, 25);
+        list.printList(); // 5 <-> 10 <-> 25 <-> 20 <-> 30 <-> NULL
+        list.reverse();
+        list.printList(); // 30 <-> 20 <-> 25 <-> 10 <-> 5 <-> NULL
+
+---------------------------------------------------------------------------------------
+
+⏳ Time Complexity of Doubly Linked List (DLL):-
+-----------------------------------------------
+        Since each node in a Doubly Linked List (DLL) contains both next and prev pointers, operations have different 
+        time complexities based on traversal requirements.
+
+📊 Time Complexity of DLL Operations:-
+--------------------------------------
+
+Operation	                        Best Case (Ω)	    Average Case (Θ)	Worst Case (O)	Explanation
+Insert at Beginning (unshift)	        O(1)	            O(1)	            O(1)	    Insert at the start by updating head. No traversal needed.
+Insert at End (push)	                O(1)	            O(1)	            O(1)	    Insert at the end by updating tail (efficient in DLL).
+Insert at Middle (insertAt(index))	    O(1)	            O(n)	            O(n)	    Requires traversal to find the index before inserting.
+Delete at Beginning (shift)	            O(1)	            O(1)	            O(1)	    Just update head to head.next. No traversal needed.
+Delete at End (pop)	                    O(1)	            O(1)	            O(1)	    Update tail to tail.prev (efficient in DLL).
+Delete at Middle (deleteAt(index))	    O(1)	            O(n)	            O(n)	    Traversal required to find the node before deleting.
+Search by Index (get(index))	        O(1)	            O(n)	            O(n)	    Need to traverse n nodes in the worst case.
+Search by Value (find(value))	        O(1)	            O(n)	            O(n)	    Need to traverse n nodes in the worst case.
+Reverse DLL (reverse())             	O(1)	            O(n)	            O(n)	    Traverse all nodes once to reverse links.
+
+
+🔍 Comparing Singly and Doubly Linked Lists:-
+--------------------------------------------
+    Both Singly Linked List (SLL) and Doubly Linked List (DLL) are types of linked lists used for dynamic data structures. 
+    However, they have key differences in terms of performance, memory usage, and ease of operations.
+
+    📌 Key Differences: SLL vs DLL:-
+    --------------------------------
+    Feature	                        Singly Linked List (SLL)	                    Doubly Linked List (DLL)
+    ----------------------------------------------------------------------------------------------------------------
+    Node Structure	                Contains value and next pointer.	            Contains value, next, and prev pointers.
+    Memory Usage	                Uses less memory as it has only one pointer.	Uses more memory due to the extra prev pointer.
+    Insertion at Start	            O(1) – Efficient.	                            O(1) – Efficient.
+    Insertion at End	            O(n) – Requires traversal.	                    O(1) – Directly update tail.
+    Insertion at Middle	            O(n) – Need to traverse.	                    O(n) – Need to traverse.
+    Deletion at Start	            O(1) – Just update head.	                    O(1) – Just update head.
+    Deletion at End	                O(n) – Need to find second last node.	        O(1) – Directly update tail.
+    Deletion at Middle	            O(n) – Need to traverse.	                    O(n) – Need to traverse.
+    Searching by Index	            O(n) – Traverse from head.	                    O(n) – Traverse from head or tail.
+    Reversing List	                O(n) – Need to update next pointers.	        O(n) – Update next and prev pointers.
+    Traversal Direction	            Forward only.	                                Forward and backward.
+    Use Cases	                    Simple applications where memory .	            Applications requiring frequent 
+                                    efficiency is important                         insertions/deletions at both ends.
+    ----------------------------------------------------------------------------------------------------------------------------------------------
+    
+🚀 Advantages & Disadvantages:-
+------------------------------
+    ✅ Advantages of Singly Linked List (SLL):-
+    -------------------------------------------
+        🟢 Requires less memory as it only has one pointer per node.
+        🟢 Simpler implementation with fewer pointer updates.
+        🟢 Efficient insertion/deletion at the beginning (O(1)).
+
+    ❌ Disadvantages of Singly Linked List (SLL):-
+    ---------------------------------------------
+        🟢 Searching is slower (O(n)) as it can only traverse forward.
+        🟢 Deletion at the end is slow (O(n)) since there’s no prev pointer.
+        🟢 Reversal is harder, requiring pointer manipulations.
+
+
+✅ Advantages of Doubly Linked List (DLL):-
+------------------------------------------
+    ✅ Advantages of Doubly Linked List (DLL):-
+    ------------------------------------------
+        🟢 Faster insertions & deletions at both start & end (O(1)).
+        🟢 Can traverse in both directions (next and prev).
+        🟢 Easier to delete nodes without traversing from the head.
+
+    ❌ Disadvantages of Doubly Linked List (DLL):-
+    ----------------------------------------------
+        🟢 Uses extra memory due to the prev pointer in each node.
+        🟢 Slightly more complex implementation due to extra pointer updates.
+        🟢 May not be ideal for memory-constrained environments.
+    
+
+🔥 When to Use Which?:-
+----------------------
+    ✔ Use SLL if:-
+    -------------
+        ✅ You have memory constraints.
+        ✅ You only need forward traversal.
+        ✅ You are inserting/deleting mostly at the beginning.
+
+    ✔ Use DLL if:-
+    -------------
+        ✅ You frequently insert/delete at both ends.
+        ✅ You need bidirectional traversal.
+        ✅ You need faster deletions from anywhere in the list.
+
+🚀 Final Verdict:-
+-----------------
+    If memory is a concern, go with Singly Linked List (SLL). If efficiency in insertion/deletion is a priority, 
+    use Doubly Linked List (DLL). 🎯

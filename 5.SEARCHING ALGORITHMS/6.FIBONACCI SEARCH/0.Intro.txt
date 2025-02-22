@@ -1,0 +1,23 @@
+/=================================== Fibonacci Search ==========================================/
+
+Algorithm:
+    • Fibonacci search is similar to binary search but uses Fibonacci numbers to split the array.
+
+Steps:
+    • Calculate two Fibonacci numbers F(k-1) and F(k-2) that are less than or equal to the length of the array.
+    • Compare the target element with the element at the index corresponding to Fibonacci numbers.
+    • Narrow down the search based on comparisons.
+
+Use Case:
+    • Used in sorted arrays, especially if you want to use Fibonacci sequence properties.
+
+Time Complexity:
+    •Best case: O(1)
+    •Worst case: O(log n)
+
+Dry Run Example: Array: [10, 20, 30, 40, 50],Target: 40
+    • Fibonacci numbers: F(5) = 5, F(4) = 3
+
+Step-by-step:
+    • Compare 40 with element at index 3 (40).
+    • Found it at index 3.

@@ -1,0 +1,423 @@
+/-----------------------------------📌 QUEUE - In-Depth Notes 📌------------------------------------------------------/
+
+🎯 What is a Queue? :-
+---------------------
+    A Queue is a linear data structure that follows the FIFO (First In, First Out) principle.
+
+    👉 FIFO means the element that is inserted first is the first one to be removed.
+    👉 It works like a queue of people waiting in line—whoever arrives first gets served first.
+
+
+💡 Real-World Analogy of Queue :-
+--------------------------------
+    ✅ Ticket Counter 🎟️
+    👉 The first person in line gets the ticket first.
+
+    ✅ Printer Queue 🖨️
+    👉 The first document sent to the printer is printed first.
+
+    ✅ Call Center Customer Support ☎️
+    👉 The first caller is attended to first.
+
+    ✅ Task Scheduling in Operating Systems ⏳
+    👉 Processes are scheduled based on arrival order.
+
+
+🏗 Structure of a Queue :-
+------------------------
+    A queue consists of:-
+    -------------------
+        👉 Front - A reference to the first element in the queue.
+        👉 Rear - A reference to the last element in the queue.
+        👉 Size - The total number of elements in the queue.
+        👉 Storage - The data structure used to store elements (Array/Linked List).
+
+        ✅ Example Queue Implementation in JavaScript :-
+        -----------------------------------------------
+        📌 Using an Array :-
+        -------------------
+                class Queue {
+                    constructor() {
+                        this.queue = [];   // Storage for queue elements
+                    }
+                
+                    enqueue(value) {
+                        this.queue.push(value); // Add element at the rear
+                    }
+                
+                    dequeue() {
+                        if (this.isEmpty()) {
+                            console.log("Queue Underflow");
+                            return null;
+                        }
+                        return this.queue.shift();  // Remove and return front element
+                    }
+                
+                    peek() {
+                        return this.isEmpty() ? "Queue is Empty" : this.queue[0];
+                    }
+                
+                    isEmpty() {
+                        return this.queue.length === 0;
+                    }
+                
+                    size() {
+                        return this.queue.length;
+                    }
+                }
+        ---------------------------------------------------
+
+        📌 Using a Linked List (More Efficient for Dynamic Size) :-
+        ----------------------------------------------------------
+                class Node {
+                    constructor(value) {
+                        this.value = value;  // Data part
+                        this.next = null;    // Pointer to next node
+                    }
+                }
+                
+                class Queue {
+                    constructor() {
+                        this.front = null;  // Front of the queue
+                        this.rear = null;   // Rear of the queue
+                        this.size = 0;      // Queue size
+                    }
+                
+                    enqueue(value) {
+                        let newNode = new Node(value);
+                        if (this.isEmpty()) {
+                            this.front = this.rear = newNode;
+                        } else {
+                            this.rear.next = newNode;  // Link new node to current rear
+                            this.rear = newNode;       // Move rear to new node
+                        }
+                        this.size++;
+                    }
+                
+                    dequeue() {
+                        if (this.isEmpty()) {
+                            console.log("Queue Underflow");
+                            return null;
+                        }
+                        let dequeuedValue = this.front.value;
+                        this.front = this.front.next;  // Move front to the next node
+                        if (!this.front) this.rear = null; // If queue becomes empty
+                        this.size--;
+                        return dequeuedValue;
+                    }
+                
+                    peek() {
+                        return this.isEmpty() ? "Queue is Empty" : this.front.value;
+                    }
+                
+                    isEmpty() {
+                        return this.size === 0;
+                    }
+                
+                    getSize() {
+                        return this.size;
+                    }
+                }
+        ----------------------------------------------------------------------------
+
+📌 Key Points About Queue Structure:-
+------------------------------------
+    ✅ Array-based implementation uses an array to store elements, but shifting elements takes O(n) time.
+    ✅ Linked list-based implementation dynamically creates nodes, making operations more efficient.
+    ✅ Queue follows FIFO (First In, First Out) principle
+    ✅ Operations like enqueue, dequeue, peek, and isEmpty are performed in O(1) time complexity (except for array-based dequeue() which is O(n))
+
+🚀 Operations on a Queue:-
+-------------------------
+    🎯 1. Creating a Queue:-
+    -----------------------
+        ✅ We start by defining a Queue class that keeps track of the front and rear elements.
+        ✅ Example of Creating a Queue:-
+        --------------------------------
+            class Queue {
+                constructor() {
+                    this.queue = [];  // Storage for queue elements
+                }
+            }
+
+            👉 Initially, the queue is an empty array, with no front and rear elements.
+        -------------------------------------------------------------------------------
+
+        🎯 2. Queue Operations:-
+        -----------------------
+            👉 Queue follows FIFO (First In, First Out) principle.:-
+            -------------------------------------------------------
+                🎯 It supports the following main operations:-
+                ---------------------------------------------
+                    📌 Enqueue (Insertion at the Rear) – O(1) Time Complexity
+                    📌 Dequeue (Deletion from the Front) – O(1) Time Complexity
+                    📌 Peek (Getting the Front Element) – O(1) Time Complexity
+                    📌 isEmpty (Checking if Queue is Empty) – O(1) Time Complexity
+                    📌 Size (Getting Number of Elements) – O(1) Time Complexity
+
+                    🎯 2️⃣ Enqueue Operation (Insert at the Rear):-
+                    ----------------------------------------------
+                        💡 Thought Process (Pseudocode):-
+                        --------------------------------
+                            ✅ Step 1: Add a new element at the rear index.
+                            ✅ Step 2: Increase the rear index.
+
+                        👉 Example Implementation of Enqueue:-
+                        -------------------------------------
+                            enqueue(value) {
+                                this.queue[this.rear] = value; // Add value at rear
+                                this.rear++; // Move rear pointer forward
+                            }
+                            👉 Example Execution:-
+                            ---------------------
+                                Before: Queue is Empty  
+                                Enqueue 10 → [10]  
+                                Enqueue 20 → [10, 20]  
+                                Enqueue 30 → [10, 20, 30]  
+                    ------------------------------------------------------
+                    🎯 3️⃣ Dequeue Operation (Remove from the Front):-
+                    -------------------------------------------------
+                        💡 Thought Process (Pseudocode):-
+                        --------------------------------
+                            ✅ Step 1: Check if the queue is empty.
+                            ✅ Step 2: Retrieve the front element.
+                            ✅ Step 3: Remove the front element.
+                            ✅ Step 4: Increase the front index.
+
+                        👉 Example Implementation of Dequeue:-
+                        -------------------------------------
+                            dequeue() {
+                                if (this.front === this.rear) {  // Check if queue is empty
+                                    console.log("Queue Underflow");
+                                    return null;
+                                }
+                                let dequeuedValue = this.queue[this.front]; // Retrieve front element
+                                this.front++; // Move front pointer forward
+                                return dequeuedValue; // Return dequeued value
+                            }
+                            👉 Example Execution:-
+                            ---------------------
+                                Before: [10, 20, 30] (Front = 10, Rear = 30)  
+                                Dequeue → Returns 10 → Queue: [20, 30]  
+                                Dequeue → Returns 20 → Queue: [30]  
+                                Dequeue → Returns 30 → Queue is Empty  
+
+                        -----------------------------------------
+
+                    🎯 4️⃣ Peek Operation (Get the Front Element without Removing):-
+                    --------------------------------------------------------------
+                    💡 Thought Process (Pseudocode):-
+                    ---------------------------------
+                        ✅ Step 1: Check if the queue is empty.
+                        ✅ Step 2: Return the front element without removing it.
+
+                        👉 Example Implementation of Peek:-
+                        ----------------------------------
+                            peek() {
+                                if (this.front === this.rear) return "Queue is Empty";
+                                return this.queue[this.front];
+                            }
+                            
+                            👉 Example Execution:-
+                            ---------------------
+                                Queue: [10, 20, 30]  
+                                Peek → Returns 10  
+                                Queue: [10, 20, 30] (No change)  
+
+                        ---------------------------------------------------
+
+                    🎯 5️⃣ isEmpty Operation (Check if Queue is Empty):-
+                    ---------------------------------------------------
+                        💡 Thought Process (Pseudocode):-
+                        --------------------------------
+                            ✅ Step 1: Check if the front index is equal to the rear index.
+                            👉 Example Implementation of isEmpty:-
+                            -------------------------------------
+                                isEmpty() {
+                                    return this.front === this.rear;
+                                }
+                                👉 Example Execution:-
+                                ---------------------
+                                    Queue: []  
+                                    isEmpty() → Returns true  
+                                    Queue: [10, 20]  
+                                    isEmpty() → Returns false  
+                            ------------------------------------------
+
+                    🎯 6️⃣ Size Operation (Get Number of Elements in Queue):-
+                    ---------------------------------------------------------
+                        💡 Thought Process (Pseudocode):-
+                        --------------------------------
+                            ✅ Step 1: Subtract front from rear to get the size.
+
+                            👉 Example Implementation of Size:-
+                            ----------------------------------
+                                size() {
+                                    return this.rear - this.front;
+                                }
+                                👉 Example Execution:-
+                                --------------------
+                                    Queue: [10, 20, 30]  
+                                    size() → Returns 3  
+                                    Queue: [10]  
+                                    size() → Returns 1  
+                                    Queue: []  
+                                    size() → Returns 0  
+
+                            -----------------------------------
+
+                    ✅ Summary of Queue Operations:-
+                    -------------------------------
+                        Operation	    Description	                        Time Complexity
+                        Enqueue	        Insert element at the rear	            O(1)
+                        Dequeue	        Remove element from the front	        O(1)
+                        Peek	        Get front element without removing	    O(1)
+                        isEmpty	        Check if the queue is empty         	O(1)
+                        Size	        Get the number of elements	            O(1)
+
+                            
+🚀 Final Queue Code Linked List Class with All Methods:-
+-------------------------------------------------------
+        class Queue {
+            constructor() {
+                this.queue = [];  // Array to store queue elements
+                this.front = 0;   // Index of the front element
+                this.rear = -1;   // Index of the rear element
+            }
+
+            // Enqueue operation - Add element to the rear of the queue
+            enqueue(value) {
+                this.rear++;  // Move rear pointer
+                this.queue[this.rear] = value; // Add element
+                console.log(`${value} enqueued into queue`);
+            }
+
+            // Dequeue operation - Remove and return the front element
+            dequeue() {
+                if (this.isEmpty()) {
+                    console.log("Queue Underflow! Cannot dequeue from an empty queue.");
+                    return null;
+                }
+                let dequeuedValue = this.queue[this.front]; // Get front element
+                this.front++; // Move front pointer forward
+                console.log(`${dequeuedValue} dequeued from queue`);
+                return dequeuedValue;
+            }
+
+            // Peek operation - Get the front element without removing it
+            peek() {
+                if (this.isEmpty()) {
+                    console.log("Queue is Empty!");
+                    return null;
+                }
+                console.log(`Front element is ${this.queue[this.front]}`);
+                return this.queue[this.front];
+            }
+
+            // isEmpty operation - Check if the queue is empty
+            isEmpty() {
+                return this.front > this.rear;
+            }
+
+            // Size operation - Get number of elements in queue
+            size() {
+                let queueSize = this.rear - this.front + 1;
+                console.log(`Queue size is ${queueSize}`);
+                return queueSize;
+            }
+
+            // Display the queue
+            printQueue() {
+                if (this.isEmpty()) {
+                    console.log("Queue is Empty!");
+                    return;
+                }
+                console.log("Queue elements:");
+                for (let i = this.front; i <= this.rear; i++) {
+                    console.log(this.queue[i]);
+                }
+            }
+        }
+
+        // Example Usage:
+        const myQueue = new Queue();
+        myQueue.enqueue(10);
+        myQueue.enqueue(20);
+        myQueue.enqueue(30);
+        myQueue.peek();  // Should display 10
+        myQueue.dequeue(); // Should remove 10
+        myQueue.size(); // Should return 2
+        myQueue.printQueue(); // Should display remaining elements
+        myQueue.isEmpty(); // Should return false
+
+
+--------------------------------------------------------------------------------
+
+
+🚀 Queue Operations and Time Complexity:-
+----------------------------------------
+Operation	                                Time Complexity (Best, Average, Worst)	        Explanation
+------------------------------------------------------------------------------------------------------------------------
+Enqueue (Insert at Rear)	                     O(1)	                                        Adding an element at the rear is a constant-time operation.
+Dequeue (Remove from Front)	                     O(1)	                                        Removing an element from the front takes constant time.
+Peek (Get Front Element without Removing)	     O(1)	                                        Retrieving the front element without removal is O(1).
+isEmpty (Check if Queue is Empty)	             O(1)	                                        Checking if the queue is empty is a simple comparison.
+Size (Get Number of Elements)	                 O(1)	                                        Retrieving the number of elements is a direct computation.
+
+        
+🔹 Why is Queue Efficient?:-
+---------------------------
+    🕒 All operations take O(1) time since we only access the front and rear elements.
+    🕒 Unlike arrays, we don’t need to shift elements during insertion or deletion.
+
+        
+    🎯 Stack vs Queue: Key Differences:-
+    ------------------------------------
+    
+        Feature	                Stack (LIFO)	            Queue (FIFO)
+        -------------------------------------------------------------------------------
+        👉 Order of Removal	    Last In, First Out (LIFO)	First In, First Out (FIFO)
+        👉 Example	            Backtracking, Undo/Redo	    CPU Scheduling, Ticket Queue
+        👉 Insert Operation	    Push (At Top)	            Enqueue (At Rear)
+        👉 Delete Operation	    Pop (From Top)	            Dequeue (From Front)
+
+
+🎯 Queue Applications in Real Life:-
+-----------------------------------
+        🔹 Task Scheduling & Processing
+        👉 CPU Scheduling (Round Robin, FCFS)
+        👉 Printer Job Scheduling
+        👉 OS Process Scheduling
+
+        🔹 Data Stream Management
+        👉 Keyboard Buffer (Characters appear in order of typing)
+        👉 Call Center (First customer gets served first)
+
+        🔹 Graph Algorithms
+        👉 Breadth-First Search (BFS)
+        👉 Shortest Path in an Unweighted Graph
+
+        🔹 Other Applications
+        👉 Handling Requests in Web Servers
+        👉 Message Queues (RabbitMQ, Kafka, etc.)
+        👉 Real-time Data Processing (Streaming Services)
+
+
+🎯 Advanced Queue Topics:-
+-------------------------
+        👉 Circular Queue (Efficient memory usage by reusing dequeued spaces)
+        👉 Priority Queue (Elements dequeued based on priority, not just order)
+        👉 Double-Ended Queue (Deque) (Insertion & Deletion from both ends)
+        👉 Multiple Queues in a Single Array
+        👉 Queue using Two Stacks
+
+
+🎯 Summary:-
+------------
+    ✔ Queue is a FIFO (First In, First Out) data structure.
+    ✔ Main operations: Enqueue, Dequeue, Peek, isEmpty.
+    ✔ Time Complexity of all operations is O(1).
+    ✔ Implemented using Arrays or Linked List.
+    ✔ Used in real-life applications like task scheduling, BFS, and request handling.
+        
+🚀 Queues are essential in real-world computing, making them one of the most important data structures! 🚀

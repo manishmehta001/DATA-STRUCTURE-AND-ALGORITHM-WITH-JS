@@ -1,0 +1,515 @@
+/-----------------------------🌳 Tree, Binary Tree & Binary Search Tree (BST) 🌳-----------------------------------/
+
+🔹 What is a Tree?:-
+-------------------
+    A tree is a hierarchical non-linear data structure that consists of nodes connected by edges. 
+    It follows a parent-child relationship where:
+
+        ✔ Root Node – The starting node of the tree.
+        ✔ Child Nodes – Nodes connected to a parent.
+        ✔ Leaf Nodes – Nodes with no children.
+        ✔ Height – The longest path from root to a leaf node.
+        ✔ Depth – Distance of a node from the root.
+
+        🔹 Example of a Tree:-
+        ---------------------
+                                      A (Root)
+                                    / | \
+                                   B  C  D
+                                  / \    | 
+                                 E   F   G
+
+    👉 Key Features of Trees:-
+    -------------------------
+        ✅ Hierarchical structure (like a family tree).
+        ✅ One parent, multiple children (except root, which has no parent).
+        ✅ No cycles (Acyclic Graph).
+
+
+🔹 What is a Binary Tree? :-
+---------------------------
+    A Binary Tree is a special type of tree where each node has at most two children:
+
+    ✔ Left Child – The left subtree of a node.
+    ✔ Right Child – The right subtree of a node.
+
+    🔹 Example of a Binary Tree:-
+    ----------------------------
+                                         A
+                                        /  \
+                                       B    C
+                                      / \  / \
+                                     D   E F  G
+
+    👉 Key Features of Binary Tree:-
+    -------------------------------
+        ✅ Each node has at most 2 children.
+        ✅ Left and right child can be NULL.
+        ✅ Used in expression trees, Huffman coding, and decision trees.
+
+
+🔹 What is a Binary Search Tree (BST)? :-
+----------------------------------------
+    A Binary Search Tree (BST) is a sorted binary tree that follows these properties:
+
+    ✔ Left subtree contains nodes with values smaller than the root.
+    ✔ Right subtree contains nodes with values greater than the root.
+    ✔ Each subtree is itself a BST.
+
+    🔹 Example of a BST:-
+    --------------------
+                                 50
+                                /  \
+                              30    70
+                             /  \   /  \
+                           20   40 60   80
+
+    👉 Key Features of BST:-
+    -----------------------
+        ✅ Left subtree < Root < Right subtree.
+        ✅ Efficient searching, insertion, and deletion (O(log N) in balanced BSTs).
+        ✅ Used in searching, sorting, databases, and indexing.
+
+
+🎯 Difference Between Tree, Binary Tree & Binary Search Tree:-
+-------------------------------------------------------------
+
+Feature	                    Tree	                                Binary Tree	                                        Binary Search Tree (BST)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Definition	            A hierarchical structure with nodes.	    A tree where each node has at most two children.	A binary tree that follows the BST property.
+Children Per Node	    Any number of children.	                    At most 2 children.	                                At most 2 children.
+Order of Nodes	        No specific order.	                        No specific order.	                                Left subtree < Root < Right subtree.
+Example	                Organizational Chart, XML Parsing.	        Expression Tree, Decision Tree.	                    Database Indexing, Auto Suggestion.
+Search Complexity	    O(N)	                                    O(N)	                                            O(log N) (Balanced) / O(N) (Skewed)
+Usage	                Data organization, file systems.	        Huffman Coding, Parsing, AI.	                    Searching, databases, auto-suggestions.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+🌍 Real-World Examples of Binary Search Tree (BST):-
+---------------------------------------------------
+    Binary Search Trees (BST) are widely used in various real-world applications where efficient searching, sorting, 
+    and organization of data are required. Here are some real-life examples:-
+
+    1️⃣ Dictionary or Phonebook Lookup 📖📞
+    ---------------------------------------
+    Scenario:-
+    ----------
+        When searching for a word in a dictionary, you don’t scan every word. Instead, you jump to the middle, 
+        decide whether to move left (earlier in the alphabet) or right (later in the alphabet), and continue until you 
+        find the word.
+
+    How BST Helps:-
+    --------------
+        Words are stored in sorted order, and the BST allows efficient searching (O(log N)) just like how we use binary 
+        search while looking up words.
+
+        Example BST Representation:-
+        ---------------------------
+                                         M
+                                        /  \
+                                       F    T
+                                      / \  / \
+                                     C   J P   W
+
+        🔹 Searching for "J"? Start at "M" → Go left to "F" → Go right to "J". ✅ Found in just 3 steps!
+
+
+    2️⃣ Auto-Suggestion & Autocomplete (Google Search, Typing Assist) 🔍:-
+    --------------------------------------------------------------------
+    Scenario:-
+    --------- 
+        When you type "appl" in Google, it suggests "apple," "application," etc.
+
+    How BST Helps:-
+    -------------
+        A BST (or a variation like a Trie) stores words in a sorted manner, allowing fast lookup of all words starting 
+        with a given prefix.
+
+        Example BST Representation for Auto-Suggestion:-
+        -----------------------------------------------
+
+                                                                 C
+                                                                /  \
+                                                               A    E
+                                                                \   / \
+                                                                 P  D   G
+                                                                  \
+                                                                   P
+                                                                    \
+                                                                      L  (apple)
+
+        🔹 Search for "app"? Start from "A" → Go to "P" → Get suggestions from subtree: "apple", "application", etc.
+
+
+    3️⃣ Database Indexing (MySQL, PostgreSQL) 🗄️:-
+    --------------------------------------------
+    Scenario:-
+    --------- 
+        When searching for customer records in a database, it should be fast and efficient.
+
+    How BST Helps:-
+    -------------- 
+        Databases use B-Trees (a variation of BST) to store indexes for quick retrieval.
+
+        Example BST Representation for Database Indexing:-
+        -------------------------------------------------
+                                                                 50
+                                                                /  \
+                                                              30    70
+                                                             /  \   /  \
+                                                            20   40 60  80
+  
+        🔹 Searching for 60? Start at 50 → Move right to 70 → Move left to 60. ✅ Found in O(log N) time.
+
+    4️⃣ File System Organization 📂:-
+    --------------------------------
+    Scenario:-
+    ---------
+        Your computer stores files in a hierarchical order, making retrieval faster.
+
+    How BST Helps:-
+    --------------
+        Folders and files are stored in a BST-like structure, allowing efficient searching.
+
+        Example File Structure as BST:-
+        ------------------------------ 
+                                                 Documents
+                                                /         \
+                                            Images      Videos
+                                            /    \       /    \
+                                           JPG   PNG   MP4    AVI
+
+        🔹 Searching for "MP4"? Start at "Documents" → Go to "Videos" → Find "MP4". ✅ Fast & Efficient!
+
+
+    🎯 Structure of BST:-
+    --------------------
+         A BST consists of nodes, where each node has:-
+        📌 Data – The value stored in the node.
+        📌 Left Child – Pointer to the left subtree (values < parent).
+        📌 Right Child – Pointer to the right subtree (values > parent).
+
+        🔹 Example BST:-
+        ----------------
+                              50
+                            /   \
+                         30      70
+                        /  \    /  \
+                       20   40 60   80
+
+        👉 Root (50): Top node of the BST.
+        👉 Left subtree (30, 20, 40): All values are less than 50.
+        👉 Right subtree (70, 60, 80): All values are greater than 50.
+ 
+
+🎯 2. BST Operations:-
+---------------------
+    BST supports the following main operations:-
+    ------------------------------------------
+        📌 Insertion (Insert a new node) – O(log N) Time Complexity
+        📌 Deletion (Remove a node) – O(log N) Time Complexity
+        📌 Search (Find a node) – O(log N) Time Complexity
+        📌 Traversal (Visit all nodes) – O(N) Time Complexity
+
+        🎯 2️⃣ Insert Operation (Adding a New Node):-
+        --------------------------------------------
+            💡 Thought Process (Pseudocode):-
+            ---------------------------------
+                ✅ Step 1: Start at the root.
+                ✅ Step 2: If the value is less than the current node, go left.
+                ✅ Step 3: If the value is greater than the current node, go right.
+                ✅ Step 4: When a null position is found, insert the new node.
+
+                👉 Example Implementation of Insertion:
+                ---------------------------------------
+                        class Node {
+                            constructor(value) {
+                                this.value = value;
+                                this.left = null;
+                                this.right = null;
+                            }
+                        }
+                        
+                        class BST {
+                            constructor() {
+                                this.root = null;
+                            }
+                        
+                            insert(value) {
+                                const newNode = new Node(value);
+                                if (!this.root) {
+                                    this.root = newNode;
+                                    return;
+                                }
+                                let current = this.root;
+                                while (true) {
+                                    if (value < current.value) {
+                                        if (!current.left) {
+                                            current.left = newNode;
+                                            return;
+                                        }
+                                        current = current.left;
+                                    } else {
+                                        if (!current.right) {
+                                            current.right = newNode;
+                                            return;
+                                        }
+                                        current = current.right;
+                                    }
+                                }
+                            }
+                        }
+
+                        👉 Example Execution:-
+                        ---------------------
+                            Insert 10 → [10]
+                            Insert 5  → [10, 5]
+                            Insert 15 → [10, 5, 15]
+                            Insert 3  → [10, 5, 15, 3]
+
+                    ---------------------------------------------------------------------
+
+
+        🎯 3️⃣ Search Operation (Finding a Node in BST):-
+        -----------------------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                ✅ Step 1: Start from the root.
+                ✅ Step 2: If the value matches, return true.
+                ✅ Step 3: If the value is less, go to the left subtree.
+                ✅ Step 4: If the value is greater, go to the right subtree.
+                ✅ Step 5: If null is reached, return false.
+
+                👉 Example Implementation of Search:-
+                ------------------------------------
+                        search(value) {
+                            let current = this.root;
+                            while (current) {
+                                if (value === current.value) return true;
+                                current = value < current.value ? current.left : current.right;
+                            }
+                            return false;
+                        }
+                        👉 Example Execution:-
+                        ---------------------
+                            Tree: [10, 5, 15, 3]
+                            Search 5  → Returns true
+                            Search 20 → Returns false
+                -----------------------------------------------------------------------------------
+
+        🎯 4️⃣ Delete Operation (Removing a Node from BST):-
+        ---------------------------------------------------
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                ✅ Step 1: Search for the node.
+                ✅ Step 2: If the node has no children, remove it.
+                ✅ Step 3: If the node has one child, replace it with the child.
+                ✅ Step 4: If the node has two children, replace it with its inorder successor.
+
+                👉 Example Implementation of Delete:-
+                ------------------------------------
+                        delete(value, root = this.root) {
+                            if (!root) return root;
+                        
+                            if (value < root.value) {
+                                root.left = this.delete(value, root.left);
+                            } else if (value > root.value) {
+                                root.right = this.delete(value, root.right);
+                            } else {
+                                if (!root.left) return root.right;
+                                if (!root.right) return root.left;
+                        
+                                let successor = root.right;
+                                while (successor.left) {
+                                    successor = successor.left;
+                                }
+                                root.value = successor.value;
+                                root.right = this.delete(successor.value, root.right);
+                            }
+                            return root;
+                        }
+                        👉 Example Execution:-
+                        ---------------------
+                            Tree: [10, 5, 15, 3, 7]
+                            Delete 5  → Tree: [10, 3, 15, 7]
+                            Delete 10 → Tree: [7, 3, 15]
+                --------------------------------------------------------------------------------------------
+
+
+🚀 Final BST Code Class with All Methods:-
+------------------------------------------
+            class TreeNode {
+                constructor(value) {
+                this.data = value; // Node value
+                this.left = null; // Left child reference
+                this.right = null; // Right child reference
+                }
+            }
+            
+            class BinarySearchTree {
+                constructor() {
+                this.root = null; // Initially, BST is empty
+                }
+            
+                // 🎯 Insert Operation (Adding a New Node)
+                insert(value) {
+                this.root = this.#insertRecursive(this.root, value);
+                }
+            
+                #insertRecursive(node, value) {
+                if (node === null) {
+                    return new TreeNode(value); // Insert new node
+                }
+                if (value < node.data) {
+                    node.left = this.#insertRecursive(node.left, value); // Go left
+                } else {
+                    node.right = this.#insertRecursive(node.right, value); // Go right
+                }
+                return node;
+                }
+            
+                // 🎯 Search Operation (Find a Value in BST)
+                search(value) {
+                return this.#searchRecursive(this.root, value);
+                }
+            
+                #searchRecursive(node, value) {
+                if (node === null || node.data === value) {
+                    return node; // Found or reached null (not found)
+                }
+                return value < node.data
+                    ? this.#searchRecursive(node.left, value) // Go left
+                    : this.#searchRecursive(node.right, value); // Go right
+                }
+            
+                // 🎯 Minimum Value (Find the Smallest Element)
+                findMin() {
+                let current = this.root;
+                while (current?.left) {
+                    current = current.left; // Go left until null
+                }
+                return current ? current.data : null;
+                }
+            
+                // 🎯 Maximum Value (Find the Largest Element)
+                findMax() {
+                let current = this.root;
+                while (current?.right) {
+                    current = current.right; // Go right until null
+                }
+                return current ? current.data : null;
+                }
+            
+                // 🎯 Delete Operation (Remove a Node)
+                delete(value) {
+                this.root = this.#deleteRecursive(this.root, value);
+                }
+            
+                #deleteRecursive(node, value) {
+                if (node === null) return node; // Not found
+            
+                if (value < node.data) {
+                    node.left = this.#deleteRecursive(node.left, value); // Go left
+                } else if (value > node.data) {
+                    node.right = this.#deleteRecursive(node.right, value); // Go right
+                } else {
+                    // Node with one or no child
+                    if (!node.left) return node.right;
+                    if (!node.right) return node.left;
+            
+                    // Node with two children: Get the inorder successor (smallest in right subtree)
+                    node.data = this.#findMinNode(node.right).data;
+                    node.right = this.#deleteRecursive(node.right, node.data);
+                }
+                return node;
+                }
+            
+                #findMinNode(node) {
+                while (node.left) {
+                    node = node.left; // Go left until null
+                }
+                return node;
+                }
+            
+                // 🎯 Inorder Traversal (Left → Root → Right)
+                inorder() {
+                this.#inorderRecursive(this.root);
+                console.log();
+                }
+            
+                #inorderRecursive(node) {
+                if (node) {
+                    this.#inorderRecursive(node.left);
+                    process.stdout.write(node.data + " ");
+                    this.#inorderRecursive(node.right);
+                }
+                }
+            
+                // 🎯 Preorder Traversal (Root → Left → Right)
+                preorder() {
+                this.#preorderRecursive(this.root);
+                console.log();
+                }
+            
+                #preorderRecursive(node) {
+                if (node) {
+                    process.stdout.write(node.data + " ");
+                    this.#preorderRecursive(node.left);
+                    this.#preorderRecursive(node.right);
+                }
+                }
+            
+                // 🎯 Postorder Traversal (Left → Right → Root)
+                postorder() {
+                this.#postorderRecursive(this.root);
+                console.log();
+                }
+            
+                #postorderRecursive(node) {
+                if (node) {
+                    this.#postorderRecursive(node.left);
+                    this.#postorderRecursive(node.right);
+                    process.stdout.write(node.data + " ");
+                }
+                }
+            }
+            
+            const bst = new BinarySearchTree();
+            
+            // 🎯 Insert Elements
+            bst.insert(50);
+            bst.insert(30);
+            bst.insert(70);
+            bst.insert(20);
+            bst.insert(40);
+            bst.insert(60);
+            bst.insert(80);
+            
+            // 🎯 Search Element
+            console.log("Search 40:", bst.search(40) ? "Found" : "Not Found");
+            console.log("Search 100:", bst.search(100) ? "Found" : "Not Found");
+            
+            // 🎯 Find Min & Max
+            console.log("Min Value:", bst.findMin());
+            console.log("Max Value:", bst.findMax());
+            
+            // 🎯 Traversals
+            console.log("Inorder Traversal:");
+            bst.inorder();
+            console.log("Preorder Traversal:");
+            bst.preorder();
+            console.log("Postorder Traversal:");
+            bst.postorder();
+            
+            // 🎯 Delete a Node
+            bst.delete(50);
+            console.log("Inorder After Deleting 50:");
+            bst.inorder();
+            
+
+-------------------------------------------------------------------------------------------
+
+✅ Summary of BST Operations:
+BST provides efficient insertion, searching, and deletion operations. It also supports different types of tree traversals, allowing various ways to process the elements.
+
+Let me know if you need further modifications! 🚀
+                

@@ -1,0 +1,22 @@
+/==================================== Jump Search ==========================================/
+Algorithm:
+    • Jump search is used on sorted arrays. It works by jumping ahead by a fixed number of steps (let’s say sqrt(n)) and then doing a linear search within that block.
+
+Steps:
+    • Jump ahead by sqrt(n) positions.
+    • Once you jump past the target, do a linear search backwards within the block.
+
+Use Case:
+    • Works best for sorted data, especially when you can’t apply binary search.
+
+Time Complexity:
+    • Best case: O(√n)
+    • Worst case: O(√n)
+
+Dry Run Example: Array: [10, 20, 30, 40, 50, 60, 70, 80, 90],Target: 70
+    • Jump size = sqrt(9) = 3
+    • Jump to 30 (index 2), not 70.
+    • Jump to 60 (index 5), still not 70.
+    • Jump to 90 (index 8), but 70 is less than 90, so now do a linear search from index 5 to 8.
+    • Find 70 at index 6.
+

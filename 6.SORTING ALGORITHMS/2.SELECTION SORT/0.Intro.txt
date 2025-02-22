@@ -1,0 +1,66 @@
+Selection Sort (Detailed Explanation):-
+    Selection Sort is a simple comparison-based sorting algorithm. It works by repeatedly selecting the smallest or largest element from the unsorted portion of the array and swapping it with the element at the beginning of the unsorted section.
+
+    It’s not very efficient for large data sets, but it’s easy to understand and implement, which makes it a good learning algorithm.
+
+🔹 How Selection Sort Works:-
+    Selection Sort follows these steps:   
+        1.Start with the first element of the array (we will call this the "current element").
+        2.Find the smallest element in the unsorted portion of the array.
+        3.Swap this smallest element with the current element.
+        4.Move the current element to the next position (i.e., mark that the current element is now sorted).
+        5.Repeat the process until all elements are sorted.
+
+    This method divides the array into two parts:
+        1.Sorted part (on the left)
+        2.Unsorted part (on the right)
+    After each pass through the unsorted part, the sorted part grows, and the unsorted part shrinks.
+
+🔹 Step-by-Step Dry Run Example (Selection Sort)
+Array: [64, 25, 12, 22, 11]
+Goal: Sort this array in ascending order.
+
+Pass 1: Find the smallest element in the entire array and swap it with the first element.
+Unsorted array: [64, 25, 12, 22, 11]
+Smallest element is 11. Swap 11 with 64.
+Array after Pass 1: [11, 25, 12, 22, 64]
+
+Pass 2: Find the smallest element in the unsorted part (starting from index 1 to the end).
+Unsorted array: [25, 12, 22, 64]
+Smallest element is 12. Swap 12 with 25.
+Array after Pass 2: [11, 12, 25, 22, 64]
+
+Pass 3: Find the smallest element in the unsorted part (starting from index 2 to the end).
+Unsorted array: [25, 22, 64]
+Smallest element is 22. Swap 22 with 25.
+Array after Pass 3: [11, 12, 22, 25, 64]
+
+Pass 4: Find the smallest element in the unsorted part (starting from index 3 to the end).
+Unsorted array: [25, 64]
+Smallest element is 25. Since 25 is already at the correct position, no swap is needed.
+Array after Pass 4: [11, 12, 22, 25, 64]
+
+Pass 5: Only one element left, so the array is already sorted.
+Array after Pass 5: [11, 12, 22, 25, 64]
+
+Now the array is sorted in ascending order!
+
+🔹 Time Complexity of Selection Sort:-
+    Case	                         Time Complexity
+    Best Case (Already Sorted)	     O(n²)
+    Worst Case (Reverse Sorted)	     O(n²)
+    Average Case	                 O(n²)
+
+    Explanation:-
+        Best case:- Even if the array is already sorted, Selection Sort still goes through the entire array to find the minimum element in the unsorted part. So, it still takes O(n²) time.
+        Worst case:- Happens when the array is sorted in reverse order, and you have to do the maximum number of comparisons and swaps.
+        Average case:- Same as the worst case because it always goes through all elements, comparing and swapping.
+        
+🔹 Why is Selection Sort Not Efficient for Large Data?
+       1. Inefficient for large arrays: Selection Sort’s time complexity is O(n²) for all cases, which makes it slower  compared to more efficient algorithms like Merge Sort or Quick Sort (O(n log n)).
+       2. No early termination:- Unlike algorithms like Bubble Sort (which can stop early if the array is sorted), Selection Sort always iterates over all the elements, making it slow even if the array is partially sorted.
+
+🔹 When to Use Selection Sort?
+       1. Small datasets:- Selection Sort can be acceptable when the dataset is small (less than 100 elements).
+       2. When memory space is critical:- Since it works in-place (O(1) space), it is suitable for situations where you  can't afford to use extra space.
+       3. Stability doesn't matter:- Selection Sort is not stable (it may change the order of equal elements). If stability is required, you might prefer using other algorithms like Insertion Sort or Merge Sort.

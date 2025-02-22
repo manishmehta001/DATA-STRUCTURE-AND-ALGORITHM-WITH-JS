@@ -1,0 +1,181 @@
+/===================================📌 Data Structures: A Complete Guide 🚀============================================/
+
+📖 What is a Data Structure? :-
+-----------------------------
+    A Data Structure is a way of organizing and storing data efficiently so that it can be accessed and modified effectively. 
+    Different types of data structures serve different purposes and are chosen based on the needs of an application.
+
+🎯 Types of Data Structures :-
+-----------------------------
+Data structures are broadly classified into Linear and Non-Linear structures.
+
+🔹 Linear Data Structures :- Linear data structures store data in a sequential manner.
+---------------------------
+    👉 Array 📊 - A fixed-size collection of elements stored at contiguous memory locations.
+    👉 Linked List 🔗 - A dynamic collection of nodes, where each node points to the next.
+    👉 Stack 📥📤 - A LIFO (Last In, First Out) structure where elements are added and removed from the top.
+    👉 Queue 🚏 - A FIFO (First In, First Out) structure where elements are inserted at one end and removed from the other.
+    👉 Deque (Double-Ended Queue) 🔄 - Allows insertion and deletion from both ends.
+
+🔹 Non-Linear Data Structures :- Non-linear structures organize data in a hierarchical manner.
+-------------------------------
+    👉 Tree 🌲 - A hierarchical structure with a root node and child nodes.
+    👉 Graph 🔗 - A collection of nodes (vertices) connected by edges.
+    👉 Heap 🏗️ - A specialized tree-based data structure used for priority-based operations.
+    👉 Tree 🔠 - A tree-like structure used for efficient searching of strings.
+
+
+💡 Operations on Data Structures :- 
+-----------------------------------
+    Each data structure supports various operations:-
+    👉 Insertion ➕ - Adding an element.
+    👉 Deletion ❌ - Removing an element.
+    👉 Search 🔍 - Finding an element.
+    👉 Traversal 🚶 - Visiting all elements.
+    👉 Sorting 🔢 - Arranging elements in order.
+    👉 Merging 🛠️ - Combining two structures.
+
+
+🔥 Comparison of Linear vs. Non-Linear Data Structures :-
+--------------------------------------------------------
+
+Feature        |         Linear DS            |     Non-Linear DS
+---------------------------------------------------------------------------
+Storage        |         Sequential 📏        |    Hierarchical 🌲
+----------------------------------------------------------------------------
+Complexity     |         Simpler 🤓           |    More complex 🧠
+----------------------------------------------------------------------------
+Examples       |         Array, Stack, Queue   |   Tree, Graph
+----------------------------------------------------------------------------
+Traversal      |         Easy ✅               |   Harder ❌
+----------------------------------------------------------------------------
+Use Case       |         When order matters     |   When relationships matter
+----------------------------------------------------------------------------
+
+
+/=====================================📌 Important Data Structures Explained 📌=====================================/
+
+📊 1. Arrays :-
+--------------
+    👉 A collection of elements stored at contiguous memory locations.
+    👉 Supports random access but has a fixed size.
+    👉 Time Complexity:-
+    -------------------
+            Access:     O(1) ✅
+            Search:     O(n) ❌ (Linear Search) or O(log n) (Binary Search)
+            Insertion:  O(n) ❌
+            Deletion:   O(n) ❌
+    👉 Example:-
+    -----------
+        const arr = [10, 20, 30, 40];
+        console.log(arr[2]); // Output: 30
+
+----------------------------------------------------------------------------------------------------------------------
+🔗 2. Linked List :-
+-------------------
+    👉 A dynamic data structure where elements (nodes) are linked using pointers.
+    👉 Supports efficient insertion and deletion.
+    👉 Types:-
+    ---------
+        ✅ Singly Linked List 🔗   -  Each node points to the next.
+        ✅ Doubly Linked List 🔄   -  Nodes have pointers to both previous and next.
+        ✅ Circular Linked List 🔁 -  The last node points to the first.
+    👉 Example:-
+    -----------
+            class Node {
+                constructor(data) {
+                this.data = data;
+                this.next = null;
+                }
+            }
+            const node1 = new Node(10);
+            const node2 = new Node(20);
+            node1.next = node2;
+
+----------------------------------------------------------------------------------------------------------------------
+
+📥📤 3. Stack (LIFO) :-
+-----------------------
+    👉 Elements are inserted and removed only from the top.
+    👉 Used in undo/redo operations, recursion, and expression evaluation.
+    👉 Operations:-
+    ---------------
+        Push (Add element) 🆕
+        Pop (Remove element) ❌
+        Peek (View top element) 👀
+    👉 Example:-
+    -----------
+            const stack = [];
+            stack.push(10);
+            stack.push(20);
+            console.log(stack.pop()); // Output: 20
+
+-----------------------------------------------------------------------------------------------------------------------
+
+🚏 4. Queue (FIFO) :-
+-------------------
+    👉 Elements are inserted from the rear and removed from the front.
+    👉 Used in task scheduling, printing jobs, CPU scheduling.
+    👉 Example:-
+    -----------
+        const queue = [];
+        queue.push(10);
+        queue.push(20);
+        console.log(queue.shift()); // Output: 10
+
+-----------------------------------------------------------------------------------------------------------------------
+
+🌲 5. Trees :-
+------------
+    👉 A hierarchical structure consisting of nodes.
+    👉 Types:-
+    ----------
+        ✅ Binary Tree 🌳 - Each node has at most two children.
+        ✅ Binary Search Tree (BST) 🔍 - Left subtree contains smaller values, right contains larger.
+        ✅ AVL Tree 📏 - A self-balancing BST.
+    👉 Example:-
+    -----------
+        class TreeNode {
+            constructor(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+            }
+        }
+        const root = new TreeNode(50);
+        root.left = new TreeNode(30);
+        root.right = new TreeNode(70);
+
+-----------------------------------------------------------------------------------------------------------------------
+
+🔗 6. Graphs :-
+-------------
+    👉 A set of nodes (vertices) connected by edges.
+    👉 Types:
+    ---------
+        ✅ Directed Graph ➡️ - Edges have direction.
+        ✅ Undirected Graph 🔄 - No direction on edges.
+    👉 Example:-
+    -----------
+        const graph = {
+            A: ["B", "C"],
+            B: ["A", "D", "E"],
+            C: ["A", "F"],
+            D: ["B"],
+            E: ["B", "F"],
+            F: ["C", "E"]
+        };
+        console.log(graph["A"]); // Output: ["B", "C"]
+
+
+🎯 Conclusion :-
+--------------
+💡 Choosing the right data structure depends on the problem you are solving.
+    ✅ Use arrays for fast access.
+    ✅ Use linked lists for dynamic size.
+    ✅ Use stacks for LIFO operations.
+    ✅ Use queues for FIFO operations.
+    ✅ Use trees for hierarchical data.
+    ✅ Use graphs for network relationships.
+
+    🚀 Mastering Data Structures will help you become a better problem solver and an efficient coder!

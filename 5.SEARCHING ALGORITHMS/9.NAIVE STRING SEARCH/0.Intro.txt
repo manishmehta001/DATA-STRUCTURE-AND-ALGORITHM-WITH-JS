@@ -1,0 +1,33 @@
+Naïve String Search Algorithm:-
+    • Naïve String Search ek brute-force technique hai jo ek text (main string) me pattern (substring) ko find karne ke liye use hoti hai.
+    • Yeh ek simple approach hai jo har position se start karke pattern ko compare karta hai.
+
+Algorithm (Steps)
+    • Loop chalao main string ke 0 se n-m tak (n = main string length, m = pattern length).
+    • Har position se pattern match karo ek ek character check karke.
+    • Agar match ho gaya toh index return karo, warna next position pe jao.
+    • Agar match nahi mila toh -1 return karo.
+
+Time Complexity :-
+    • Best Case: O(n - m + 1) (if match is found early).
+    • Worst Case: O(n * m) (if no match is found or checking every position).
+Dry Run Example
+    🔍 Main String: "ABABDABACDABABCABAB"
+    🔍 Pattern: "ABABCABAB"
+
+Step	Start Index	    Matching Characters?
+1	    A (index 0)	    ❌ No
+2	    B (index 1)	    ❌ No
+3	    A (index 2)	    ❌ No
+...	...	...
+6	    A (index 10)	✅ Found at index 10
+
+Comparison with Other Algorithms:-
+    Algorithm	    Time Complexity	    Best Use Case
+    Naïve Search	O(n * m)	        Small strings
+    KMP Algorithm	O(n + m)	        Large texts with repeated patterns
+    Rabin-Karp	    O(n + m) (avg)	    Multiple pattern search
+
+Conclusion:-
+    🟢 Naïve String Search simple aur easy-to-implement hai, lekin large strings ke liye efficient nahi hai.
+    🚀 Better algorithms jaise KMP (Knuth-Morris-Pratt) aur Rabin-Karp ko use karna better hoga for large-scale applications.

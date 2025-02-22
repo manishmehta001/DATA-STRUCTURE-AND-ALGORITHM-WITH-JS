@@ -1,0 +1,111 @@
+🚀 Quick Sort Explained in Depth:-
+        Quick Sort is one of the most efficient Divide and Conquer sorting algorithms. It is widely used because of its fast average performance and in-place sorting capability (i.e., it does not require extra memory like Merge Sort).
+
+🔹 How Quick Sort Works?
+        👉 Quick Sort works by selecting a pivot element, then partitioning the array so that: 
+        👉 Elements smaller than the pivot go to the left.
+        👉 Elements greater than the pivot go to the right.
+        👉 The process is repeated recursively on both sides until the entire array is sorted.
+        💡 Think of it like sorting a group of people by height: pick one person as a reference (pivot),
+
+📌 Steps to Perform Quick Sort:-
+    1️⃣ Choose a pivot element (Can be the first, last, or a random element).
+    2️⃣ Partition the array so that elements smaller than the pivot move to the left and greater ones move to the right.
+    3️⃣ Recursively apply Quick Sort on the left and right subarrays.
+    4️⃣ Base Condition: If the subarray has only one element or is empty, stop recursion.
+
+⏳ Time Complexity of Quick Sort:-
+    Case	Time Complexity
+    🔹 Best Case	O(n log n)
+    🔹 Average Case	O(n log n)
+    🔹 Worst Case (Already sorted or all elements identical)	O(n²)
+    ✅ Faster than Merge Sort in most cases
+    ❌ Worst-case happens when the pivot is poorly chosen
+        
+🎯 Dry Run Example:-
+    Array: [8, 3, 1, 7, 6, 5, 2, 4]
+    Step 1: Choose a Pivot (Last element as pivot)
+            Pivot = 4
+            [8, 3, 1, 7, 6, 5, 2, 4]
+
+    Step 2: Partition the Array
+    Move smaller elements to the left and larger ones to the right:
+            [3, 1, 2]  [4]  [8, 7, 6, 5]
+
+    Step 3: Recursively Apply Quick Sort
+            Sort Left:  [3, 1, 2]  → Pivot: 2 → [1] [2] [3] ✅  
+            Sort Right: [8, 7, 6, 5]  → Pivot: 6 → [5] [6] [7, 8] ✅  
+
+    Step 4: Final Sorted Array
+            [1, 2, 3, 4, 5, 6, 7, 8] ✅ (Sorted!)
+
+💻 Quick Sort Code in JavaScript (With Explanation)
+        const quickSort = (array) => {
+            if (array.length <= 1) return array; // Base case: If the array has 1 or 0 elements, it is already sorted
+        
+            let pivot = array[array.length - 1]; // Choosing the last element as pivot
+            let left = [], right = []; // Arrays to store smaller and larger elements
+        
+            for (let i = 0; i < array.length - 1; i++) { // Partitioning
+            if (array[i] < pivot) {
+                left.push(array[i]); // Elements smaller than pivot go to 'left'
+            } else {
+                right.push(array[i]); // Elements greater than pivot go to 'right'
+            }
+            }
+        
+            return [...quickSort(left), pivot, ...quickSort(right)]; // Recursively sort and merge
+        };
+        
+        console.log(quickSort([8, 3, 1, 7, 6, 5, 2, 4]));
+
+📌 Code Explanation (Step-by-Step):-
+
+    1️⃣ Base Case (Stopping Condition)
+       // if (array.length <= 1) return array;
+    👉 If the array has one or zero elements, it's already sorted.
+
+    2️⃣ Choosing the Pivot Element:-
+        // let pivot = array[array.length - 1]; 
+    👉 We choose the last element as the pivot.
+
+    3️⃣ Partitioning the Array
+        let left = [], right = [];
+        for (let i = 0; i < array.length - 1; i++) {
+        if (array[i] < pivot) {
+            left.push(array[i]);
+        } else {
+            right.push(array[i]);
+        }
+        }
+    👉 Create two subarrays:-
+            👉 Left: Contains elements smaller than the pivot.
+            👉 Right: Contains elements greater than the pivot.
+
+    4️⃣ Recursively Apply Quick Sort
+        // return [...quickSort(left), pivot, ...quickSort(right)];
+    👉 Recursively call quickSort() on left and right, then merge them with the pivot.
+
+🔥 Why Use Quick Sort?
+    ✅ Faster than Merge Sort for small & average datasets
+    ✅ In-Place Sorting (No extra memory required)
+    ✅ Efficient for real-world applications
+    ✅ Performs well with random or unsorted data
+    ❌ Worst case happens when pivot is poorly chosen (O(n²))
+    ❌ Not stable (Equal elements may change relative positions)
+
+📌 Optimizing Quick Sort:-
+    1️⃣ Choosing a Better Pivot:
+      👉 Instead of always picking the last element, use Median of Three (First, Middle, Last element).
+      👉 This prevents the worst case (O(n²)) when the array is already sorted.
+
+    2️⃣ Using Tail Recursion Optimization:
+      👉 Instead of calling recursive functions for both left and right, prefer looping for smaller partition to save   stack memory.
+
+🚀 Summary (Quick Revision):-
+    ✅ Quick Sort follows the Divide and Conquer approach.
+    ✅ It picks a pivot, partitions the array, and recursively sorts the left and right subarrays.
+    ✅ Average Time Complexity is O(n log n) (Faster than Merge Sort for practical usage).
+    ✅ Worst Case O(n²) happens if the pivot is poorly chosen.
+    ✅ It is an in-place sorting algorithm (No extra memory like Merge Sort).
+    ✅ Used widely in real-world applications, including databases and libraries like sort() in JavaScript.

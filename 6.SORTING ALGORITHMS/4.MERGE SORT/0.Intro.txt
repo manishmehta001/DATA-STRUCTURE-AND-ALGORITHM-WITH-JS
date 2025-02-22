@@ -1,0 +1,130 @@
+🚀 Merge Sort Explained in Depth:-
+        Merge Sort is an efficient and stable sorting algorithm that follows the Divide and Conquer approach. It is one of the most used sorting techniques in computer science.
+
+🔹 How Merge Sort Works?
+        👉 Merge Sort splits the array into smaller subarrays, sorts them, and then merges them back together in sorted order.
+        💡 Think of it as sorting a deck of cards by first breaking it into small piles, sorting each pile, and then merging them back together!
+
+📌 Steps to Perform Merge Sort:-
+    1️⃣ Divide the array into two halves until each subarray contains only one element.
+    2️⃣ Sort each half recursively.
+    3️⃣ Merge the sorted halves back together in the correct order.
+        
+⏳ Time Complexity of Merge Sort:-
+    Case	                Time Complexity
+    🔹 Best Case	        O(n log n)
+    🔹 Average Case	        O(n log n)
+    🔹 Worst Case	        O(n log n)
+
+    ✅ Always efficient, regardless of input order.
+    ❌ Uses extra memory (O(n)), unlike Insertion or Selection Sort.
+
+🎯 Dry Run Example:- Array: [8, 4, 1, 5, 9, 2]
+
+Step 1: Divide the Array into Halves
+            [8, 4, 1, 5, 9, 2]
+                /           \
+            [8, 4, 1]    [5, 9, 2]
+
+        Further divide:
+        [8, 4, 1] → [8] [4,1]  → [4] [1]  
+        [5, 9, 2] → [5] [9,2]  → [9] [2]  
+        Now, every subarray contains only one element.
+
+Step 2: Merge Sorted Subarrays
+        [4, 1] → [1, 4]  
+        [9, 2] → [2, 9]  
+
+        Now merge them step by step:-
+        [8] + [1, 4] → [1, 4, 8]  
+        [5] + [2, 9] → [2, 5, 9]  
+
+        Final merge:-
+        [1, 4, 8] + [2, 5, 9] → [1, 2, 4, 5, 8, 9] ✅ (Sorted!)
+
+💻 Merge Sort Code in JavaScript (With Explanation)
+        const mergeSort = (array) => {
+            if (array.length <= 1) return array; // Base case: if the array has 1 or 0 elements, it is already sorted
+        
+            let mid = Math.floor(array.length / 2); // Find the middle index
+            let left = mergeSort(array.slice(0, mid)); // Recursively sort the left half
+            let right = mergeSort(array.slice(mid)); // Recursively sort the right half
+        
+            return merge(left, right); // Merge both halves
+        };
+        
+        // Function to merge two sorted arrays
+        const merge = (left, right) => {
+            let result = [];
+            let i = 0, j = 0;
+        
+            while (i < left.length && j < right.length) {
+            if (left[i] < right[j]) {
+                result.push(left[i]);
+                i++;
+            } else {
+                result.push(right[j]);
+                j++;
+            }
+            }
+        
+            // Add remaining elements (if any)
+            return result.concat(left.slice(i)).concat(right.slice(j));
+        };
+        
+        console.log(mergeSort([8, 4, 1, 5, 9, 2]));
+
+📌 Code Explanation (Step-by-Step):-
+
+    1️⃣ Base Case (Stopping Condition)
+        if (array.length <= 1) return array;
+    👉 If the array has one or zero elements, it's already sorted, so we return it.
+
+    2️⃣ Finding the Middle Index:-
+        let mid = Math.floor(array.length / 2);
+    👉 We find the middle of the array to split it into two halves.
+
+    3️⃣ Recursively Sorting Both Halves:-
+        let left = mergeSort(array.slice(0, mid));
+        let right = mergeSort(array.slice(mid));
+    👉 We recursively call mergeSort() on both halves.
+
+    4️⃣ Merging Two Sorted Arrays:-
+        return merge(left, right);
+    👉 Finally, we merge the sorted halves using the merge() function.
+
+    5️⃣ Merging Logic:-
+        const merge = (left, right) => {
+            let result = [];
+            let i = 0, j = 0;
+    👉 We use two pointers i and j to compare elements from both halves.
+
+    while (i < left.length && j < right.length) {
+        if (left[i] < right[j]) {
+          result.push(left[i]);
+          i++;
+        } else {
+          result.push(right[j]);
+          j++;
+        }
+      }
+    👉 If left[i] < right[j], we push left[i] into result and increment i.
+    👉 Otherwise, we push right[j] and increment j.
+
+    // return result.concat(left.slice(i)).concat(right.slice(j));
+    👉 This adds any remaining elements from left or right (if one array was longer).
+
+🔥 Why Use Merge Sort?
+    ✅ Guaranteed O(n log n) performance (Unlike Bubble, Selection, and Insertion Sort)
+    ✅ Stable Sorting Algorithm (Preserves order of equal elements)
+    ✅ Efficient for Large Data Sets
+    ✅ Works Well for Linked Lists
+    
+    ❌ Uses Extra Space O(n) (Because it creates new arrays in each recursion)
+
+🚀 Summary (Quick Revision):-
+    ✅ Merge Sort follows Divide and Conquer strategy.
+    ✅ It splits the array into two halves, sorts them recursively, and merges them.
+    ✅ Time Complexity is O(n log n) for all cases (Best, Average, Worst).
+    ✅ Not In-Place Sorting (Requires extra memory).
+    ✅ Best choice for large datasets and linked lists.

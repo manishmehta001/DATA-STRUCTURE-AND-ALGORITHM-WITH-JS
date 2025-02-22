@@ -1,0 +1,290 @@
+/-------------------------------------🎯 Dynamic Programming (DP) 🎯----------------------------------------------/
+
+🎯 Dynamic Programming (DP) :-
+-----------------------------
+    👉 Dynamic Programming is an optimization technique used to solve problems by breaking them down into smaller 
+    overlapping subproblems and storing their results to avoid redundant computations.
+
+    
+🎯 Key Concepts in DP:-
+----------------------
+    📌 Optimal Substructure (A problem can be broken down into smaller subproblems, which can be used to build the final solution)
+    📌 Overlapping Subproblems (Solving the same subproblems multiple times can be avoided by storing results)
+    📌 Memoization (Top-down approach, storing results of solved subproblems)
+    📌 Tabulation (Bottom-up approach, solving from smaller subproblems to bigger ones)
+
+🎯 Approaches to DP :-
+---------------------
+    1. Memoization (Top-Down) :-
+    ---------------------------
+        👉 Recursion with caching results.
+        👉 Avoids repeated computations.
+        👉 Suitable when recursion depth is manageable.
+
+        🎯 Example:-
+        -----------
+                function fib(n, memo = {}) {
+                    if (n <= 1) return n;
+                    if (n in memo) return memo[n];
+                    return memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+                }
+
+    2. Tabulation (Bottom-Up):-
+    --------------------------
+        👉 Iterative approach using arrays.
+        👉 Solves all subproblems first, then builds up to the main problem.
+        👉 Generally more efficient in terms of space.
+        🎯 Example:-
+        ------------
+                function fib(n) {
+                    if (n <= 1) return n;
+                    let dp = [0, 1];
+                    for (let i = 2; i <= n; i++) {
+                        dp[i] = dp[i - 1] + dp[i - 2];
+                    }
+                    return dp[n];
+                }
+
+🎯 Types of DP Problems:-
+------------------------
+    👉 DP problems can be categorized based on their recurrence structure and approach. Some common types include:-
+    --------------------------------------------------------------------------------------------------------------
+        📌 1️⃣ Subset Sum & Knapsack Variants (0/1 Knapsack, Unbounded Knapsack, Partition problems) 🎒
+        📌 2️⃣ Fibonacci Variants (Staircase Problem, Tiling Problems, etc.) 🔢
+        📌 3️⃣ Grid-Based Problems (Unique Paths, Minimum Path Sum) 🎯
+        📌 4️⃣ String Problems (Longest Common Subsequence, Edit Distance) ✍
+        📌 5️⃣ Coin Change & DP on Trees (Coin Change, House Robber, etc.) 🪙
+
+        🟢 1. Basic DP Problems
+            ✅ Fibonacci Numbers 🧮
+            ✅ Climbing Stairs 🏃‍♂️⬆️
+            ✅ House Robber 🏠💰💵
+
+        🔵 2. 2D DP (Grid-Based Problems) 🏗️
+            🔹 Unique Paths 🏞️
+            🔹 Longest Common Subsequence (LCS) 📏📜
+            🔹 Edit Distance ✍️🔄
+
+        🟠 3. Knapsack Type Problems 🎒
+            🎯 0/1 Knapsack 🎽
+            🎯 Unbounded Knapsack ♾️🎽
+            🎯 Coin Change 💰➡️🪙
+
+        🟡 4. Substring and Subsequence Problems 🔤
+            ⭐ Longest Palindromic Subsequence 🪞🔁
+            ⭐ Longest Increasing Subsequence 📈
+
+        🟣 5. Partition DP ✂️
+            ✂️ Palindrome Partitioning 📝🔀
+            ✂️ Matrix Chain Multiplication 🧩📦
+
+        ⚫ 6. DP with Bitmasking 🕶️
+            🤖 Traveling Salesman Problem 🗺️🚖
+            🧮 Counting Ways in Graphs 🔢🔗
+
+
+        🎯 1️⃣ Fibonacci Sequence using DP 🔢 :-
+        ----------------------------------------
+            👉 Problem Statement:-
+            ---------------------
+            Given an integer n, compute the n-th Fibonacci number where:-
+               📌 F(0) = 0
+               📌 F(1) = 1
+               📌 F(n) = F(n-1) + F(n-2)
+
+            Recursive Approach (Brute Force):-
+            --------------------------------
+                💡 Thought Process (Pseudocode):-
+                --------------------------------
+                    👉 If n = 0 or n = 1, return n (Base case)
+                    👉 Otherwise, recursively compute fib(n-1) + fib(n-2)
+
+                    Example:-
+                    --------
+                        function fib(n) {
+                            if (n <= 1) return n;
+                            return fib(n - 1) + fib(n - 2);
+                        }
+                        console.log(fib(5)); // Output: 5
+
+            📌 Time Complexity: O(2ⁿ)
+            📌 Space Complexity: O(N) (Due to recursion stack)
+
+            🎯 2️⃣ Optimized Fibonacci using Memoization (Top-Down DP):-
+            -----------------------------------------------------------
+            📌 Memoization stores already computed results to avoid redundant calculations.
+            Example:-
+            ---------
+                    function fibMemo(n, memo = {}) {
+                        if (n <= 1) return n;
+                        if (memo[n]) return memo[n];
+                        return memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+                    }
+                    console.log(fibMemo(5)); // Output: 5
+
+            📌 Time Complexity: O(N)
+            📌 Space Complexity: O(N) (For recursion stack & memo storage)
+
+            🎯 3️⃣ Optimized Fibonacci using Tabulation (Bottom-Up DP):-
+            ----------------------------------------------------------
+            📌 Tabulation builds the solution iteratively from base cases.
+            Example:-
+            ---------
+                    function fibTabulation(n) {
+                        if (n <= 1) return n;
+                        let dp = [0, 1];
+                        for (let i = 2; i <= n; i++) {
+                            dp[i] = dp[i - 1] + dp[i - 2];
+                        }
+                        return dp[n];
+                    }
+                    console.log(fibTabulation(5)); // Output: 5
+
+            📌 Time Complexity: O(N)
+            📌 Space Complexity: O(N)
+
+            🎯 4️⃣ Optimized Fibonacci with Constant Space:-
+            -----------------------------------------------
+            📌 We only need the last two Fibonacci numbers, so we can use variables instead of an array.
+            Example :-
+            ---------
+                    function fibOptimized(n) {
+                        if (n <= 1) return n;
+                        let prev2 = 0, prev1 = 1, curr;
+                        for (let i = 2; i <= n; i++) {
+                            curr = prev1 + prev2;
+                            prev2 = prev1;
+                            prev1 = curr;
+                        }
+                        return curr;
+                    }
+                    console.log(fibOptimized(5)); // Output: 5
+                    
+            📌 Time Complexity: O(N)
+            📌 Space Complexity: O(1)
+
+
+        🎯 2️⃣ 0/1 Knapsack Problem 🎒:-
+        -------------------------------
+        👉 Problem Statement:-
+        ---------------------
+            Given N items, each with a weight and value, determine the maximum value that can be obtained by selecting 
+            items within a given weight capacity.
+
+            💡 Thought Process (Pseudocode):-
+            --------------------------------
+                👉 Either include the current item or exclude it.
+                👉 If included: Add its value and decrease the remaining weight.
+                👉 If excluded: Move to the next item.
+                👉 Compute the maximum of both cases.
+
+                Example of Implemention :-
+                -------------------------
+                        function knapsack(weights, values, W, n) {
+                            if (n === 0 || W === 0) return 0;
+                        
+                            if (weights[n - 1] > W) return knapsack(weights, values, W, n - 1);
+                        
+                            return Math.max(
+                                values[n - 1] + knapsack(weights, values, W - weights[n - 1], n - 1),
+                                knapsack(weights, values, W, n - 1)
+                            );
+                        }
+                        console.log(knapsack([2, 3, 4, 5], [3, 4, 5, 6], 5, 4)); // Output: 7
+
+                📌 Time Complexity: O(2ⁿ)
+                📌 Space Complexity: O(N)
+
+                🎯 Optimized Knapsack using Memoization:-
+                ----------------------------------------
+                    Example of Optimized Knapsack using Memoization:-
+                    -----------------------------------------------
+                            function knapsackMemo(weights, values, W, n, memo = {}) {
+                                if (n === 0 || W === 0) return 0;
+                                if (`${n}-${W}` in memo) return memo[`${n}-${W}`];
+                            
+                                if (weights[n - 1] > W) return memo[`${n}-${W}`] = knapsackMemo(weights, values, W, n - 1, memo);
+                            
+                                return memo[`${n}-${W}`] = Math.max(
+                                    values[n - 1] + knapsackMemo(weights, values, W - weights[n - 1], n - 1, memo),
+                                    knapsackMemo(weights, values, W, n - 1, memo)
+                                );
+                            }
+                            console.log(knapsackMemo([2, 3, 4, 5], [3, 4, 5, 6], 5, 4)); // Output: 7
+                    
+                📌 Time Complexity: O(N * W)
+                📌 Space Complexity: O(N * W)
+
+
+
+        🎯 3️⃣ Longest Common Subsequence (LCS):-
+        ----------------------------------------
+        👉 Problem Statement:-
+        ---------------------
+            Given two strings, find the longest subsequence common to both.
+
+            💡 Thought Process (Pseudocode):-
+            ---------------------------------
+                👉 If last characters match, include them.
+                👉 Else, take the max of removing one character from either string.
+
+                Implemention of problem Statement:-
+                ----------------------------------
+                        function lcs(s1, s2, m, n) {
+                            if (m === 0 || n === 0) return 0;
+                            if (s1[m - 1] === s2[n - 1]) return 1 + lcs(s1, s2, m - 1, n - 1);
+                            return Math.max(lcs(s1, s2, m - 1, n), lcs(s1, s2, m, n - 1));
+                        }
+                        console.log(lcs("abcde", "ace", 5, 3)); // Output: 3
+
+                📌 Time Complexity: O(2ⁿ)
+                📌 Optimized DP Complexity: O(N²)
+
+                
+🎯 Optimization Techniques :-
+-------------------------
+    📌 Space Optimization :-
+    -----------------------
+    👉 Instead of maintaining a full DP table, keep only the last two rows (for 2D DP) or last few values (for 1D DP).
+
+    📌 Bitmasking :-
+    ---------------
+    👉 Used in problems like Traveling Salesman Problem (TSP) to reduce state space.
+
+    📌 Divide and Conquer with DP (DP on Trees/Graphs):-
+    ---------------------------------------------------
+    👉 Problems like Diameter of Tree, LCA, etc.
+
+
+🎯 Final Tips for Solving DP Problems:-
+--------------------------------------
+    ✅Identify Overlapping Subproblems & Optimal Substructure
+    ✅Write the Recurrence Relation
+    ✅Choose Memoization or Tabulation
+    ✅Optimize Space Complexity (if possible)
+    ✅Practice Standard DP Problems
+
+🎯 Suggested Practice Problems :-
+--------------------------------
+    👉Easy: Climbing Stairs, Fibonacci, House Robber
+    👉Medium: LCS, Coin Change, 0/1 Knapsack
+    👉Hard: Palindrome Partitioning, TSP, DP on Trees
+
+
+
+🎯 Final Complexity Summary:-
+----------------------------
+        DP Technique	            Time Complexity         	Space Complexity
+        ------------------------------------------------------------------------------------
+        Fibonacci DP	                O(N)	                    O(1)
+        0/1 Knapsack DP	                O(N * W)	                O(N * W)
+        Longest Common Subsequence	    O(N²)	                    O(N²)
+
+
+🚀 Conclusion:-
+--------------
+    👉 Use DP for problems with overlapping subproblems and optimal substructure
+    👉 Memoization is useful when recursion depth is large
+    👉 Tabulation is better when recursion stack causes memory overflow
+
+Would you like more problem variations covered? 😊

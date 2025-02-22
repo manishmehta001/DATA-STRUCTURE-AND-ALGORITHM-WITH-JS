@@ -1,0 +1,19 @@
+/=================================== Hash Table Lookup (Hashing) ===========================================/
+Algorithm:
+    • Hashing is a technique to store data in a structure (hash table) where elements are mapped to indices using a hash function.
+    
+Steps:
+    • A key is passed through a hash function, which generates an index where the value is stored.
+    • Lookup involves hashing the key again and checking if the element exists at the computed index.
+
+Use Case:
+    • Fast lookups, especially when you need constant time retrieval.
+
+Time Complexity:
+    • Best case: O(1)
+    • Worst case: O(n) (in case of collisions, but with proper handling, it stays O(1))
+
+Dry Run Example: Let’s use a hash table with size 5:
+    • Hash function: key % 5
+    • Insert 25: 25 % 5 = 0. Place 25 at index 0.
+    • Lookup 25: 25 % 5 = 0, find 25 at index 0.

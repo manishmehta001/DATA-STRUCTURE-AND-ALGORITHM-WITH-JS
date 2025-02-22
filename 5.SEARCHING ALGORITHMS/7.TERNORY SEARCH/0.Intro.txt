@@ -1,0 +1,19 @@
+/=============================================== Ternary Search ========================================/
+Algorithm:
+    •Ternary search is similar to binary search, but instead of dividing the array into two parts, it divides the array into three parts.
+    
+Steps:
+    • Calculate two mid-points: mid1 = low + (high - low) / 3, mid2 = high - (high - low) / 3.
+    • Compare the target with mid1 and mid2.
+    • If the target is smaller than mid1, search the left part. If larger than mid2, search the right part. Otherwise, search the middle part.
+
+Use Case:
+    • Works on sorted arrays, and sometimes gives better performance than binary search.
+
+Time Complexity:
+    • Best case: O(1)
+    • Worst case: O(log3 n)
+
+Dry Run Example: Array: [10, 20, 30, 40, 50, 60, 70],Target: 40
+
+Divide into three parts using mid1 and mid2 and repeat the search as needed.

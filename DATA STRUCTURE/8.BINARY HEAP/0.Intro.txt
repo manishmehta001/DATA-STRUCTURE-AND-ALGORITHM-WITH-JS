@@ -1,0 +1,278 @@
+
+/----------------------------------------✮  Binary Heap ✮-----------------------------------------------------------/
+
+✮ Binary Heap :-
+------------------
+    👉 A **Binary Heap** is a complete binary tree that satisfies the **heap property**. It is used in priority queues 
+        and efficient heap-based algorithms.
+
+    ✮ It supports the following two main types:-
+    -------------------------------------------------
+        📌 **Min Heap** (Parent is smaller than children)
+        📌 **Max Heap** (Parent is greater than children)
+
+        ✮ 1⃣ Types of Binary Heaps:-
+        ----------------------------------
+            👉 **Min Heap**:-
+            --------------------
+                💡 **Properties**:
+                ----------------
+                    ✅ The **root node** is always the **smallest** element.
+                    ✅ Each parent node has a value **less than or equal** to its children.
+                    ✅ The smallest value is always at the root.
+
+                    👉 **Example Representation of Min Heap**:-
+                    ---------------------------------------------------
+                            10
+                           /   \
+                          20    15
+                         /  \   /  \
+                        30  40 50  100
+
+                    **Array Representation:** [10, 20, 15, 30, 40, 50, 100]
+
+                    **Operations in Min Heap:**
+                    ----------------------------------
+                        ✅ **Insertion** (Maintains heap property by bubbling up)
+                        ✅ **Deletion (Extract Min)** (Removes root and restructures the heap)
+                        ✅ **Heapify** (Reorganizes the tree to maintain heap properties)
+
+            👉 **Max Heap**:-
+            --------------------
+                💡 **Properties**:
+                ----------------
+                    ✅ The **root node** is always the **largest** element.
+                    ✅ Each parent node has a value **greater than or equal** to its children.
+                    ✅ The largest value is always at the root.
+
+                    👉 **Example Representation of Max Heap**:-
+                    ---------------------------------------------------
+                            100
+                           /    \
+                          50     90
+                         /  \   /   \
+                        30  40 10   15
+
+                    **Array Representation:** [100, 50, 90, 30, 40, 10, 15]
+
+                    **Operations in Max Heap:**
+                    ----------------------------------
+                        ✅ **Insertion** (Maintains heap property by bubbling up)
+                        ✅ **Deletion (Extract Max)** (Removes root and restructures the heap)
+                        ✅ **Heapify** (Reorganizes the tree to maintain heap properties)
+
+        ✮ 2⃣ Heap Operations (Insertion & Deletion):-
+        -------------------------------------------------
+            ✮ **Insertion in a Heap**:-
+            --------------------------------
+                💡 **Steps to Insert an Element in Heap**:
+                --------------------------------------------------
+                    ✅ Insert the new element at the end of the heap.
+                    ✅ Perform **Heapify-Up** (Bubble Up) to restore the heap property.
+
+                ✮ **Example Implementation of Insertion in Min Heap**:-
+                ----------------------------------------------------------------
+                        class MinHeap {
+                            constructor() {
+                                this.heap = [];
+                            }
+
+                            insert(value) {
+                                this.heap.push(value);
+                                this.heapifyUp();
+                            }
+
+                            heapifyUp() {
+                                let index = this.heap.length - 1;
+                                while (index > 0) {
+                                    let parentIndex = Math.floor((index - 1) / 2);
+                                    if (this.heap[parentIndex] > this.heap[index]) {
+                                        [this.heap[parentIndex], this.heap[index]] = [this.heap[index], this.heap[parentIndex]];
+                                        index = parentIndex;
+                                    } else break;
+                                }
+                            }
+                        }
+
+                        🔍 **Example Execution:**
+                        ----------------------------
+                            MinHeap.insert(10)
+                            MinHeap.insert(20)
+                            MinHeap.insert(5)
+
+                            **Heap after Insertion:** [5, 20, 10]
+
+            ✮ **Deletion in a Heap (Extract Min / Extract Max)**:-
+            ----------------------------------------------------------------
+                💡 **Steps to Delete Root in Heap**:
+                --------------------------------------------------
+                    ✅ Remove the root node (Min or Max depending on the heap type).
+                    ✅ Replace the root with the last element.
+                    ✅ Perform **Heapify-Down** to restore the heap property.
+
+                ✮ **Example Implementation of Deletion in Min Heap**:-
+                ----------------------------------------------------------------
+                        class MinHeap {
+                            extractMin() {
+                                if (this.heap.length === 0) return null;
+                                if (this.heap.length === 1) return this.heap.pop();
+
+                                let min = this.heap[0];
+                                this.heap[0] = this.heap.pop();
+                                this.heapifyDown(0);
+                                return min;
+                            }
+
+                            heapifyDown(index) {
+                                let leftChild = 2 * index + 1;
+                                let rightChild = 2 * index + 2;
+                                let smallest = index;
+
+                                if (leftChild < this.heap.length && this.heap[leftChild] < this.heap[smallest]) {
+                                    smallest = leftChild;
+                                }
+                                if (rightChild < this.heap.length && this.heap[rightChild] < this.heap[smallest]) {
+                                    smallest = rightChild;
+                                }
+                                if (smallest !== index) {
+                                    [this.heap[index], this.heap[smallest]] = [this.heap[smallest], this.heap[index]];
+                                    this.heapifyDown(smallest);
+                                }
+                            }
+                        }
+
+                        🔍 **Example Execution:**
+                        ----------------------------
+                            MinHeap.extractMin()
+                            **Heap after Deletion:** [10, 20]
+
+
+🚀 Final Binary Heap Code Class with All Methods:-
+------------------------------------------
+            class MinHeap {
+                constructor() {
+                    this.heap = [];
+                }
+
+                // Get the parent index
+                getParentIndex(index) {
+                    return Math.floor((index - 1) / 2);
+                }
+
+                // Get left child index
+                getLeftChildIndex(index) {
+                    return 2 * index + 1;
+                }
+
+                // Get right child index
+                getRightChildIndex(index) {
+                    return 2 * index + 2;
+                }
+
+                // Swap two elements
+                swap(index1, index2) {
+                    [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
+                }
+
+                // Insert a new element into the heap
+                insert(value) {
+                    this.heap.push(value);
+                    this.heapifyUp();
+                }
+
+                // Heapify-up (Bubble Up)
+                heapifyUp() {
+                    let index = this.heap.length - 1;
+                    while (index > 0) {
+                        let parentIndex = this.getParentIndex(index);
+                        if (this.heap[parentIndex] > this.heap[index]) {
+                            this.swap(parentIndex, index);
+                            index = parentIndex;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+
+                // Extract the minimum element (root)
+                extractMin() {
+                    if (this.heap.length === 0) return null;
+                    if (this.heap.length === 1) return this.heap.pop();
+
+                    const min = this.heap[0];
+                    this.heap[0] = this.heap.pop();
+                    this.heapifyDown(0);
+                    return min;
+                }
+
+                // Heapify-down (Bubble Down)
+                heapifyDown(index) {
+                    let smallest = index;
+                    let leftChild = this.getLeftChildIndex(index);
+                    let rightChild = this.getRightChildIndex(index);
+
+                    if (leftChild < this.heap.length && this.heap[leftChild] < this.heap[smallest]) {
+                        smallest = leftChild;
+                    }
+                    if (rightChild < this.heap.length && this.heap[rightChild] < this.heap[smallest]) {
+                        smallest = rightChild;
+                    }
+                    if (smallest !== index) {
+                        this.swap(index, smallest);
+                        this.heapifyDown(smallest);
+                    }
+                }
+
+                // Get the minimum value without removing it
+                getMin() {
+                    return this.heap.length > 0 ? this.heap[0] : null;
+                }
+
+                // Print the heap
+                printHeap() {
+                    console.log(this.heap);
+                }
+            }
+
+            // Example Usage
+            const minHeap = new MinHeap();
+            minHeap.insert(10);
+            minHeap.insert(20);
+            minHeap.insert(5);
+            minHeap.insert(30);
+            minHeap.insert(15);
+
+            console.log("Min Heap:");
+            minHeap.printHeap();
+
+            console.log("Extracted Min:", minHeap.extractMin());
+            console.log("Heap after extracting min:");
+            minHeap.printHeap();
+
+
+
+
+    ✮ 3⃣ Time Complexity of Binary Heap:-
+    ----------------------------------------------
+        ✅ **Insertion:** O(log N) (Due to heapify-up)
+        ✅ **Deletion (Extract Min/Max):** O(log N) (Due to heapify-down)
+        ✅ **Heapify Operation:** O(log N)
+        ✅ **Building a Heap:** O(N) (Using bottom-up heapify approach)
+        ✅ **Accessing Min/Max Element:** O(1)
+
+    ✮ 4⃣ Applications of Binary Heap:-
+    ----------------------------------------------
+        ✅ **Priority Queue** (Efficiently fetches min/max priority element)
+        ✅ **Heap Sort** (Sorting using min/max heap)
+        ✅ **Graph Algorithms** (Dijkstra’s Algorithm, Prim’s Algorithm)
+        ✅ **Median Finding** (Using Min-Heap and Max-Heap combination)
+
+    ✮ 5⃣ Summary:-
+    ----------------------------------------------
+        📌 **Binary Heap** is a complete binary tree used for efficient priority queue operations.
+        📌 **Supports Min Heap & Max Heap** for maintaining order.
+        📌 **Efficient Insertion, Deletion, and Heapify operations (O(log N)).**
+        📌 **Widely used in Graph Algorithms, Heap Sort, and Data Structures like Priority Queues.**
+
+/----------------------------------------✮  End of Binary Heap Explanation ✮-----------------------------------------------------------/
+

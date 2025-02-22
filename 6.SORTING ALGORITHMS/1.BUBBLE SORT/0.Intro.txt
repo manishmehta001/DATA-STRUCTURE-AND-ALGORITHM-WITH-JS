@@ -1,0 +1,45 @@
+/======================= Bubble Sort (Easy Explanation & Note) =======================================================/
+🔹 What is Bubble Sort?
+Bubble Sort is a simple sorting algorithm that repeatedly swaps adjacent elements if they are in the wrong order. This process continues until the entire array is sorted.
+
+🔹 How does it work?
+    • Start from the first element and compare it with the next element.
+    • If the first element is greater, swap them.
+    • Move to the next pair and repeat.
+    • The largest number moves to the end after one complete pass.
+    • Repeat the process for the remaining elements until sorted.
+
+🔹 Dry Run Example (Step-by-Step):-
+    Array: [5, 3, 8, 4, 2]
+    
+    Pass 1:-
+    [5, 3, 8, 4, 2] → Compare 5 & 3 → Swap → [3, 5, 8, 4, 2]  
+    [3, 5, 8, 4, 2] → Compare 5 & 8 → No swap  
+    [3, 5, 8, 4, 2] → Compare 8 & 4 → Swap → [3, 5, 4, 8, 2]  
+    [3, 5, 4, 8, 2] → Compare 8 & 2 → Swap → [3, 5, 4, 2, 8] ✅ (Largest element at the end)
+
+    Pass 2:-
+    [3, 5, 4, 2, 8] → Compare 3 & 5 → No swap  
+    [3, 5, 4, 2, 8] → Compare 5 & 4 → Swap → [3, 4, 5, 2, 8]  
+    [3, 4, 5, 2, 8] → Compare 5 & 2 → Swap → [3, 4, 2, 5, 8] ✅
+
+    Pass 3:-
+    [3, 4, 2, 5, 8] → Compare 3 & 4 → No swap  
+    [3, 4, 2, 5, 8] → Compare 4 & 2 → Swap → [3, 2, 4, 5, 8] ✅
+
+    Pass 4:-
+    [3, 2, 4, 5, 8] → Compare 3 & 2 → Swap → [2, 3, 4, 5, 8] ✅ Sorted!
+
+🔹Time Complexity of Bubble Sort:-
+    Case	                        Complexity
+    Best Case (Already Sorted)	    O(n)
+    Worst Case (Reverse Sorted)	    O(n²)
+    Average Case	                O(n²)
+    
+🔹Why is it called "Bubble Sort"?
+    Because larger elements "bubble up" to the top after each pass, just like air bubbles rising in water.
+    
+🔹Key Takeaways:-
+✅ Bubble Sort is simple but slow (O(n²)).
+✅ Better alternatives: Insertion Sort (for small data), Quick Sort, Merge Sort (for large data).
+✅ Optimized Bubble Sort stops early when no swaps happen.

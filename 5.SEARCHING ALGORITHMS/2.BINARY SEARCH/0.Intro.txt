@@ -1,0 +1,28 @@
+/*
+/======================Binary Search===========================/
+Algorithm:
+    • Binary search is a more efficient algorithm, but it only works on sorted arrays or lists.
+Steps:
+Find the middle element.
+    • If the middle element is equal to the target, return the index.
+    • If the target is smaller than the middle element, repeat the process on the left half.
+    • If the target is larger, repeat on the right half.
+    • Keep repeating until you either find the element or the list is exhausted.
+
+Use Case:
+    • Works only on sorted data. It's faster for large datasets compared to linear search.
+
+Time Complexity:
+    • Best case: O(1)
+    • Worst case: O(log n) (because you halve the search space with each comparison)
+
+Dry Run Example: Array: [10, 20, 30, 40, 50], Target: 40
+
+Step-by-step:
+    • Middle element is 30 (index 2).
+    • 40 is greater than 30, so now search in the right half [40, 50].
+    • Middle element is 40 (index 3).
+    • Found it! Return index 3.
+
+
+*/

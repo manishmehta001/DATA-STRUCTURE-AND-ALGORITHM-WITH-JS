@@ -1,0 +1,164 @@
+🚀 Radix Sort Explained in Depth :-
+        Radix Sort is a non-comparative sorting algorithm that works by sorting numbers digit by digit, from the least significant digit (LSD) to the most significant digit (MSD).
+
+        Unlike Quick Sort or Merge Sort, Radix Sort does not compare elements directly. Instead, it places numbers into buckets based on each digit's value, making it faster for large numbers when the range of values is limited.
+
+🔹 How Radix Sort Works?
+        1️⃣ Find the maximum number in the array and determine the number of digits.
+        2️⃣ Sort the numbers based on each digit, starting from the least significant digit (rightmost) to the most significant digit (leftmost).
+        3️⃣ Use counting sort as a subroutine to sort numbers at each digit position.
+        4️⃣ Repeat until all digits are processed.
+        
+        💡 Think of sorting student roll numbers where you first sort by the last digit, then the second last, and so on!
+
+⏳ Time Complexity of Radix Sort
+        Case	           Time Complexity
+    🔹 Best Case	       O(nk)
+    🔹 Average Case	       O(nk)
+    🔹 Worst Case	       O(nk)
+🔹 Where:-
+    👉 n is the number of elements.
+    👉 k is the number of digits in the largest number.
+
+    ✅ Faster than comparison-based sorting algorithms (O(n log n)) for large numbers
+    ✅ Good for sorting numbers with a fixed range of digits
+    ❌ Not suitable for sorting strings or very large numbers with many digits  
+
+🎯 Dry Run Example:-
+    Array: [170, 45, 75, 90, 802, 24, 2, 66]
+    Step 1: Sort by 1st Digit (Least Significant Digit)
+        170 → 0  
+        45  → 5  
+        75  → 5  
+        90  → 0  
+        802 → 2  
+        24  → 4  
+        2   → 2  
+        66  → 6  
+        🔹 Buckets After Sorting by 1st Digit:
+        [170, 90]  [802, 2]  [24]  [45, 75]  [66]
+        🔹 New Order: [170, 90, 802, 2, 24, 45, 75, 66]
+
+    Step 2: Sort by 2nd Digit
+        170 → 7  
+        90  → 9  
+        802 → 0  
+        2   → 0  
+        24  → 2  
+        45  → 4  
+        75  → 7  
+        66  → 6 
+        🔹 New Order After Sorting by 2nd Digit: [802, 2, 24, 45, 66, 170, 75, 90]
+
+    Step 3: Sort by 3rd Digit (Most Significant Digit) 
+        802 → 8  
+        2   → 0  
+        24  → 0  
+        45  → 0  
+        66  → 0  
+        170 → 1  
+        75  → 0  
+        90  → 0  
+    🔹 Final Sorted Array: [2, 24, 45, 66, 75, 90, 170, 802] ✅
+
+ 💻 Radix Sort Code in JavaScript (With Explanation):-
+        const getDigit = (num, place) => {
+            return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
+        };
+        
+        const digitCount = (num) => {
+            return num === 0 ? 1 : Math.floor(Math.log10(Math.abs(num))) + 1;
+        };
+        
+        const mostDigits = (arr) => {
+            let maxDigits = 0;
+            for (let num of arr) {
+            maxDigits = Math.max(maxDigits, digitCount(num));
+            }
+            return maxDigits;
+        };
+        
+        const radixSort = (array) => {
+            let maxDigitCount = mostDigits(array);
+        
+            for (let k = 0; k < maxDigitCount; k++) {
+            let digitBuckets = Array.from({ length: 10 }, () => []);
+        
+            for (let num of array) {
+                let digit = getDigit(num, k);
+                digitBuckets[digit].push(num);
+            }
+        
+            array = [].concat(...digitBuckets);
+            }
+        
+            return array;
+        };
+        
+        console.log(radixSort([170, 45, 75, 90, 802, 24, 2, 66]));
+  //=========================================================================//
+
+📌 Code Explanation (Step-by-Step):-
+    1️⃣ Get Digit at a Specific Place
+        const getDigit = (num, place) => {
+            return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
+        };
+    👉 Extracts the digit at a given place (1s, 10s, 100s, etc.).
+    👉 Example: getDigit(345, 1) → 4 (Gets the 10s place digit).
+      
+    2️⃣ Count the Number of Digits in a Number
+        const digitCount = (num) => {
+            return num === 0 ? 1 : Math.floor(Math.log10(Math.abs(num))) + 1;
+        };
+    👉 Finds the total number of digits in a number.
+    👉 Example: digitCount(345) → 3.
+
+    3️⃣ Find the Maximum Number of Digits
+        const mostDigits = (arr) => {
+            let maxDigits = 0;
+            for (let num of arr) {
+            maxDigits = Math.max(maxDigits, digitCount(num));
+            }
+            return maxDigits;
+        };
+    👉 Determines the maximum number of digits in any number.
+    👉 Example: [170, 45, 75, 90] → 3.
+
+    4️⃣ The Main Radix Sort Function
+        const radixSort = (array) => {
+            let maxDigitCount = mostDigits(array);
+        
+            for (let k = 0; k < maxDigitCount; k++) {
+            let digitBuckets = Array.from({ length: 10 }, () => []);
+        
+            for (let num of array) {
+                let digit = getDigit(num, k);
+                digitBuckets[digit].push(num);
+            }
+        
+            array = [].concat(...digitBuckets);
+            }
+        
+            return array;
+        };
+    ✅ Step 1: Find the maximum number of digits in the array.
+    ✅ Step 2: Loop through each digit place (units, tens, hundreds, etc.).
+    ✅ Step 3: Place numbers into buckets based on their digit value.
+    ✅ Step 4: Flatten the buckets and repeat for the next digit place.
+    ✅ Step 5: After the last digit is processed, return the sorted array.
+      
+🔥 Why Use Radix Sort?
+    ✅ Faster than Quick Sort & Merge Sort when dealing with numbers
+    ✅ Works in O(nk) time complexity (Better for large datasets with fewer digits)
+    ✅ Stable Sorting Algorithm (Preserves order of duplicate elements)
+    
+    ❌ Only works with integers (Not good for floating points or strings)
+    ❌ Extra memory required for buckets (Not an in-place sorting algorithm)
+
+🚀 Summary (Quick Revision):-
+    ✔ Radix Sort sorts numbers digit by digit (Least to Most Significant Digit).
+    ✔ Uses Counting Sort as a subroutine to sort numbers at each step.
+    ✔ O(nk) Time Complexity (Faster than comparison-based sorts for small digit counts).
+    ✔ Not an in-place algorithm (Requires extra memory for buckets).
+    ✔ Best for numbers with limited digits, like ZIP codes, phone numbers, or account numbers.
+      

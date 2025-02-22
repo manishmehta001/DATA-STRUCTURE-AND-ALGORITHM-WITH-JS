@@ -1,0 +1,386 @@
+/-----------------------------------📌 STACK - In-Depth Notes📌------------------------------------------------------/
+
+️🎯 What is a Stack? :-
+---------------------
+    A stack is a linear data structure that follows the LIFO (Last In, First Out) principle.
+
+    👉 LIFO means the last element inserted is the first one to be removed.
+    👉 It works like a stack of plates where the last plate placed is the first one taken out.
+
+💡 Real-World Analogy of Singly Stack:-
+--------------------------------------
+    ✅ Undo/Redo in a Text Editor 📝
+    👉 The most recent action is undone first (LIFO).
+
+    ✅ Back & Forward in Web Browsers 🌐
+    👉 When you visit a page, it gets added to the stack. Pressing "Back" pops the last page visited.
+
+    ✅ Call Stack in Programming ⚙️
+    👉 Functions are pushed onto the stack when called and popped when they return.
+
+    ✅ Stack of Plates 🍽️
+    👉 The topmost plate is removed first, and new plates are added on top.
+
+
+🏗 Structure of a Stack:-
+------------------------
+    A stack consists of:-
+    --------------------
+        👉 Top - A reference to the top element of the stack.
+        👉 Size - The total number of elements in the stack.
+        👉 Storage - The data structure used to store elements (Array/Linked List).
+
+        ✅ Example Stack Implementation in JavaScript:-
+        ----------------------------------------------
+        📌 Using an Array:-
+        ------------------
+                class Stack {
+                    constructor() {
+                        this.stack = [];   // Storage for stack elements
+                        this.top = -1;     // Top of stack (Initially empty)
+                    }
+                
+                    push(value) {
+                        this.stack.push(value); // Add element at the top
+                        this.top++;             // Move top pointer
+                    }
+                
+                    pop() {
+                        if (this.isEmpty()) {
+                            console.log("Stack Underflow");
+                            return null;
+                        }
+                        this.top--;              // Move top pointer down
+                        return this.stack.pop();  // Remove and return top element
+                    }
+                
+                    peek() {
+                        return this.isEmpty() ? "Stack is Empty" : this.stack[this.top];
+                    }
+                
+                    isEmpty() {
+                        return this.top === -1;
+                    }
+                
+                    size() {
+                        return this.stack.length;
+                    }
+                }
+        -------------------------------------
+        📌 Using a Linked List (More Efficient for Dynamic Size):-
+        ---------------------------------------------------------
+                class Node {
+                    constructor(value) {
+                        this.value = value;  // Data part
+                        this.next = null;    // Pointer to next node
+                    }
+                }
+                
+                class Stack {
+                    constructor() {
+                        this.top = null;    // Top of the stack (Initially empty)
+                        this.size = 0;      // Stack size
+                    }
+                
+                    push(value) {
+                        let newNode = new Node(value);
+                        newNode.next = this.top;  // Link new node to current top
+                        this.top = newNode;       // Move top to new node
+                        this.size++;
+                    }
+                
+                    pop() {
+                        if (this.isEmpty()) {
+                            console.log("Stack Underflow");
+                            return null;
+                        }
+                        let poppedValue = this.top.value;
+                        this.top = this.top.next;  // Move top to the next node
+                        this.size--;
+                        return poppedValue;
+                    }
+                
+                    peek() {
+                        return this.isEmpty() ? "Stack is Empty" : this.top.value;
+                    }
+                
+                    isEmpty() {
+                        return this.top === null;
+                    }
+                
+                    getSize() {
+                        return this.size;
+                    }
+                }
+        -----------------------------------------------------------------------------
+📌 Key Points About Stack Structure:
+------------------------------------
+    ✅ In array-based implementation, we use an array to store elements and a variable to track the top.
+    ✅ In linked list-based implementation, we use a Node class to create stack elements dynamically.
+    ✅ Stack follows LIFO (Last In, First Out) principle.
+    ✅ Operations like push, pop, peek, and isEmpty are performed in O(1) time complexity.
+
+
+🚀 Operations on a Stack:-
+-------------------------
+    🎯 1. Creating a Stack:-
+    -----------------------
+        ✅ We start by defining a Stack class that keeps track of the top element and size of the stack.
+        ✅ Example of Creating a Stack:-
+        -------------------------------
+            class Stack {
+                constructor() {
+                    this.stack = [];  // Storage for stack elements
+                    this.top = -1;    // Index of the top element (Initially empty)
+                }
+            }
+
+            👉 Initially, stack is an empty array, and top is -1 because the stack is empty.
+        -------------------------------
+
+    🎯 2. Stack Operations:-
+    -----------------------
+        👉 Stack follows LIFO (Last In, First Out) principle.
+        🎯 It supports the following main operations:-
+        ---------------------------------------------
+            📌 Push (Insertion at the Top) – O(1) Time Complexity
+            📌 Pop (Deletion from the Top) – O(1) Time Complexity
+            📌 Peek (Getting the Top Element) – O(1) Time Complexity
+            📌 isEmpty (Checking if Stack is Empty) – O(1) Time Complexity
+            📌 Size (Getting Number of Elements) – O(1) Time Complexity
+
+            🎯 1️⃣ Push Operation (Insert at the Top):-
+            ------------------------------------------
+                💡 Thought Process (Pseudocode):-
+                --------------------------------
+                    ✅ Step 1: Create a new element.
+                    ✅ Step 2: Increase the top index.
+                    ✅ Step 3: Place the new element at the top index in the stack.
+                    ✅ Step 4: Increase the size of the stack.
+
+                👉 Example Implementation of Push:-
+                ----------------------------------
+                    push(value) {
+                        this.top++;                // Move top pointer
+                        this.stack[this.top] = value; // Add value at the new top
+                    }
+                
+                    👉 Example Execution:-
+                    ---------------------
+                        Before: Stack is Empty  
+                        Push 10 → [10]  
+                        Push 20 → [10, 20]  
+                        Push 30 → [10, 20, 30]  
+
+            🎯 2️⃣ Pop Operation (Remove from the Top):-
+            ------------------------------------------
+                💡 Thought Process (Pseudocode):-
+                --------------------------------
+                    ✅ Step 1: Check if the stack is empty.
+                    ✅ Step 2: Retrieve the top element.
+                    ✅ Step 3: Remove the top element.
+                    ✅ Step 4: Decrease the top index.
+
+                👉 Example Implementation of Pop:-
+                ---------------------------------
+                    pop() {
+                        if (this.top === -1) {  // Check if stack is empty
+                            console.log("Stack Underflow");
+                            return null;
+                        }
+                        let poppedValue = this.stack[this.top]; // Retrieve top element
+                        this.top--; // Move top pointer down
+                        return poppedValue; // Return popped value
+                    }
+
+                    👉 Example Execution:-
+                    ---------------------
+                        Before: [10, 20, 30] (Top = 30)  
+                        Pop → Returns 30 → Stack: [10, 20]  
+                        Pop → Returns 20 → Stack: [10]  
+                        Pop → Returns 10 → Stack is Empty  
+                        
+            🎯 3️⃣ Peek Operation (Get the Top Element without Removing):-
+            -------------------------------------------------------------
+                💡 Thought Process (Pseudocode):-
+                --------------------------------
+                    ✅ Step 1: Check if the stack is empty.
+                    ✅ Step 2: Return the top element without removing it.
+
+                👉 Example Implementation of Peek:-
+                ----------------------------------
+                    peek() {
+                        if (this.top === -1) return "Stack is Empty";
+                        return this.stack[this.top];
+                    }
+                    👉 Example Execution:-
+                    ---------------------
+                        Stack: [10, 20, 30]  
+                        Peek → Returns 30  
+                        Stack: [10, 20, 30] (No change)  
+
+
+            🎯 4️⃣ isEmpty Operation (Check if Stack is Empty):-
+            ---------------------------------------------------
+                💡 Thought Process (Pseudocode):-
+                --------------------------------
+                    ✅ Step 1: Check if the top index is -1.
+                    ✅ Step 2: If top == -1, return true (Stack is empty). Else, return false.
+
+                    👉 Example Implementation of isEmpty:-
+                    -------------------------------------
+                    isEmpty() {
+                        return this.top === -1;
+                    }
+                    👉 Example Execution:-
+                    ---------------------
+                        Stack: [10, 20] → isEmpty() → Returns False  
+                        Stack: [] (Empty) → isEmpty() → Returns True  
+                    
+
+            🎯 5️⃣ Size Operation (Get the Number of Elements in Stack):-
+            ------------------------------------------------------------
+                💡 Thought Process (Pseudocode):-
+                --------------------------------
+                    ✅ Step 1: Return top + 1 since index starts from 0.
+
+                    👉 Example Implementation of Size:-
+                    ----------------------------------
+                        size() {
+                            return this.top + 1;
+                        }
+                        👉 Example Execution:-
+                        ---------------------
+                            Stack: [10, 20, 30]  
+                            Size → Returns 3  
+                            Stack: [10, 20]  
+                            Size → Returns 2  
+                        
+
+🚀 Final Linked List Class with All Methods:-
+---------------------------------------------
+        class Stack {
+            constructor() {
+                this.stack = [];  // Array to store stack elements
+                this.top = -1;    // Index of the top element
+            }
+
+            // Push operation - Add element to the top of stack
+            push(value) {
+                this.top++; // Move top pointer
+                this.stack[this.top] = value; // Add element
+                console.log(`${value} pushed into stack`);
+            }
+
+            // Pop operation - Remove and return the top element
+            pop() {
+                if (this.isEmpty()) {
+                    console.log("Stack Underflow! Cannot pop from an empty stack.");
+                    return null;
+                }
+                let poppedValue = this.stack[this.top]; // Get top element
+                this.top--; // Move top pointer down
+                console.log(`${poppedValue} popped from stack`);
+                return poppedValue;
+            }
+
+            // Peek operation - Get the top element without removing it
+            peek() {
+                if (this.isEmpty()) {
+                    console.log("Stack is Empty!");
+                    return null;
+                }
+                console.log(`Top element is ${this.stack[this.top]}`);
+                return this.stack[this.top];
+            }
+
+            // isEmpty operation - Check if stack is empty
+            isEmpty() {
+                return this.top === -1;
+            }
+
+            // Size operation - Get number of elements in stack
+            size() {
+                console.log(`Stack size is ${this.top + 1}`);
+                return this.top + 1;
+            }
+
+            // Display the stack
+            printStack() {
+                if (this.isEmpty()) {
+                    console.log("Stack is Empty!");
+                    return;
+                }
+                console.log("Stack elements:");
+                for (let i = this.top; i >= 0; i--) {
+                    console.log(this.stack[i]);
+                }
+            }
+        }
+
+        // Example Usage:
+        const myStack = new Stack();
+        myStack.push(10);
+        myStack.push(20);
+        myStack.push(30);
+        myStack.peek(); // Should display 30
+        myStack.pop();  // Should remove 30
+        myStack.size(); // Should return 2
+        myStack.printStack(); // Should display remaining elements
+        myStack.isEmpty(); // Should return false
+
+
+
+🕒 Time Complexity of Stack Operations:-
+---------------------------------------
+Operation	        Time Complexity (Best, Average, Worst)	        Explanation
+Push (Insert)	        O(1)	                                    Adding element at the top is a constant-time operation
+Pop (Remove)	        O(1)	                                    Removing the top element is done in constant time
+Peek (Get Top)	        O(1)	                                    Retrieving the top element without removal is O(1)
+isEmpty	                O(1)	                                    Checking if the stack is empty is a simple comparison
+Size	                O(1)	                                    Retrieving the number of elements is a direct computation
+
+
+🔹 Why is Stack Efficient?:-
+---------------------------
+    🕒 All operations take O(1) time since only the top element is accessed.
+    🕒 Unlike arrays, we don’t need to shift elements during insertion or deletion.
+
+🎯 Stack vs Queue: Key Differences:-
+------------------------------------
+
+    Feature	                Stack (LIFO)	            Queue (FIFO)
+    -------------------------------------------------------------------------------
+    👉 Order of Removal	    Last In, First Out (LIFO)	First In, First Out (FIFO)
+    👉 Example	            Backtracking, Undo/Redo	    CPU Scheduling, Ticket Queue
+    👉 Insert Operation	    Push (At Top)	            Enqueue (At Rear)
+    👉 Delete Operation	    Pop (From Top)	            Dequeue (From Front)
+
+
+🎯 Stack Applications in Real Life:-
+-----------------------------------
+    🔹 Expression Evaluation & Conversion
+        👉 Infix to Postfix
+        👉 Expression evaluation (Postfix/Prefix)
+            🔹 Function Call Stack in Programming
+            🔹 Backtracking (Maze, Sudoku, etc.)
+            🔹 Undo/Redo in Applications
+            🔹 Browser History (Back & Forward)
+            🔹 Parentheses Matching in Expressions
+
+
+🎯 Advanced Stack Topics:-
+-------------------------
+    👉 Dynamic Stack Implementation (Using Linked List)
+    👉 Stack-Based Recursion
+    👉 Multi-Stack in a Single Array
+    👉 Two Stacks in One Array
+    👉 Monotonic Stack (Used in Optimization Problems)
+
+🎯 Summary:-
+---------
+    ✔ Stack is a LIFO (Last In, First Out) data structure.
+    ✔ Main operations: Push, Pop, Peek, isEmpty.
+    ✔ Time Complexity of all operations is O(1).
+    ✔ Implemented using Arrays or Linked List.
+    ✔ Used in real-life applications like Undo/Redo, Browser History, Call Stack.
